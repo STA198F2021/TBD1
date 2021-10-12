@@ -1,20 +1,3 @@
-# data
-
-Place data file(s) in this folder.
-
-Then, include metadata about your dataset including information on provenance, codebook, etc.
-
-The codebook for your data file(s) using the following format.
-
-## name of data file
-
-|variable         |description |
-|:----------------|:-----------|
-|variable1        | Description of variable 1 |
-|variable2        | Description of variable 2 |
-|variable3        | Description of variable 3 |
-|...              | ... |
-
 ## phsm-severity-data-short.csv
 
 |variable         |description |
@@ -29,12 +12,14 @@ The codebook for your data file(s) using the following format.
 |BUSINESSES      | Level of restrictions regarding businesses (i.e. nonessential worker furlough) |
 |MOVEMENTS      | Level of restrictions regarding movements (i.e. home curfews) |
 |GLOBAL_INDEX      | Mean of all six category restriction levels |
-|...              | ... |
+
 
 
 ## search_term_us.xlsx
 
-Similar spreadsheets with identical variable names and descriptions are present for Canada, Iran, Italy, Japan, South Korea, the United Kingdom, and the United States. Lastly, a final iteration includes worldwide data. A level of 100 for all Google Search trend measurements represents an absolute maximum level of interest, and 1 an absolute minimum. A value of 0 represents a lack of available data.
+Similar spreadsheets with identical variable names and descriptions are present for Canada, Iran, Italy, Japan, South Korea, the United Kingdom, and the United States. Lastly, a final iteration includes worldwide data. 
+
+A level of 100 for all Google Search trend measurements represents an absolute maximum level of interest, and 1 an absolute minimum. A value of 0 represents a lack of available data.
 
 |variable         |description |
 |:----------------|:-----------|
@@ -48,4 +33,3 @@ Similar spreadsheets with identical variable names and descriptions are present 
 |mental health        | Google Search trend measurement for 'mental health' |
 |counseling        | Google Search trend measurement for 'counseling' |
 |psychiatrist        | Google Search trend measurement for 'psychiatrist' |
-|...              | ... |
