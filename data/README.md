@@ -31,10 +31,9 @@ The codebook for your data file(s) using the following format.
 |GLOBAL_INDEX      | Mean of all six category restriction levels |
 |...              | ... |
 
-Week	depression	anxiety	obsessive compulsive disorder	ocd	insomnia	panic attack	mental health	counseling	psychiatrist
-![image](https://user-images.githubusercontent.com/89479699/136883484-4a8fa41a-7bae-4526-9c7f-9a637a2eae5d.png)
 
 ## search_term_us.xlsx
+
 Similar spreadsheets with identical variable names and descriptions are present for Canada, Iran, Italy, Japan, South Korea, the United Kingdom, and the United States. Lastly, a final iteration includes worldwide data. A level of 100 for all Google Search trend measurements represents an absolute maximum level of interest, and 1 an absolute minimum. A value of 0 represents a lack of available data.
 
 |variable         |description |
