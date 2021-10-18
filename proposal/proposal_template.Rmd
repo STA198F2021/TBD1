@@ -14,22 +14,33 @@ library(readxl)
 ``` 
 
 # Load Data
-```{r load-data, message = F}
+```{r load-data, message = FALSE}
 setwd('../')
 restrictions_worldwide <- readr::read_csv("data/phsm-severity-data-short.csv")
-search_canada <- read_excel("data/search_term_canada.xlsx")
-search_iran <- read_excel("data/search_term_iran.xlsx")
-search_italy <- read_excel("data/search_term_italy.xlsx")
-search_japan <- read_excel("data/search_term_japan.xlsx")
-search_sk <- read_excel("data/search_term_sk.xlsx")
-search_uk <- read_excel("data/search_term_uk.xlsx")
-search_us <- read_excel("data/search_term_us.xlsx")
-search_worldwide <- read_excel("data/search_term_worldwide.xlsx")
+# search_canada <- read_excel("data/search_term_canada.xlsx")
+# search_iran <- read_excel("data/search_term_iran.xlsx")
+# search_italy <- read_excel("data/search_term_italy.xlsx")
+# search_japan <- read_excel("data/search_term_japan.xlsx")
+# search_sk <- read_excel("data/search_term_sk.xlsx")
+# search_uk <- read_excel("data/search_term_uk.xlsx")
+# search_us <- read_excel("data/search_term_us.xlsx")
+# search_worldwide <- read_excel("data/search_term_worldwide.xlsx")
 google_trends <- readr::read_csv("data/google_trends_data.csv")
-
 
 ```
 
+```{r clean-data}
+google_trends <- 
+  google_trends %>%
+  mutate(COUNTRY = nation) %>%
+  mutate(DATE_START = week)
+
+match_dates<-merge(restrictions_worldwide, google_trends, by=c("COUNTRY","DATE_START")) 
+
+new_set <- 
+  match_dates %>%
+  select(-c(week, nation))
+```
 # Introduction and Data, including Research Questions
 
 
@@ -51,7 +62,7 @@ glimpse(restrictions_worldwide)
 ## South Korea, the United Kingdom, the United States, and for worldwide results.
 ## All have been appropriately loaded and read into R.
 
-glimpse(search_canada)
+#glimpse(search_canada)
 
 
 ```
