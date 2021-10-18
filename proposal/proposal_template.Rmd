@@ -15,16 +15,17 @@ library(readxl)
 
 # Load Data
 ```{r load-data, message = F}
-# setwd("C:/Users/matth/Desktop/Hide from Desktop/Rdocs/Rdocs_B/TBD1/data")
-restrictions_worldwide <- readr::read_csv("/home/guest/TBD1/data/phsm-severity-data-short.csv")
-search_canada <- read_excel("/home/guest/TBD1/data/search_term_canada.xlsx")
-search_iran <- read_excel("/home/guest/TBD1/data/search_term_iran.xlsx")
-search_italy <- read_excel("/home/guest/TBD1/data/search_term_italy.xlsx")
-search_japan <- read_excel("/home/guest/TBD1/data/search_term_japan.xlsx")
-search_sk <- read_excel("/home/guest/TBD1/data/search_term_sk.xlsx")
-search_uk <- read_excel("/home/guest/TBD1/data/search_term_uk.xlsx")
-search_us <- read_excel("/home/guest/TBD1/data/search_term_us.xlsx")
-search_worldwide <- read_excel("/home/guest/TBD1/data/search_term_worldwide.xlsx")
+setwd('../')
+restrictions_worldwide <- readr::read_csv("data/phsm-severity-data-short.csv")
+search_canada <- read_excel("data/search_term_canada.xlsx")
+search_iran <- read_excel("data/search_term_iran.xlsx")
+search_italy <- read_excel("data/search_term_italy.xlsx")
+search_japan <- read_excel("data/search_term_japan.xlsx")
+search_sk <- read_excel("data/search_term_sk.xlsx")
+search_uk <- read_excel("data/search_term_uk.xlsx")
+search_us <- read_excel("data/search_term_us.xlsx")
+search_worldwide <- read_excel("data/search_term_worldwide.xlsx")
+
 
 ```
 
