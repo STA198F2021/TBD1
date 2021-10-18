@@ -25,6 +25,7 @@ search_sk <- read_excel("data/search_term_sk.xlsx")
 search_uk <- read_excel("data/search_term_uk.xlsx")
 search_us <- read_excel("data/search_term_us.xlsx")
 search_worldwide <- read_excel("data/search_term_worldwide.xlsx")
+google_trends <- readr::read_csv("data/google_trends_data.csv")
 
 
 ```
