@@ -11,6 +11,7 @@ output: pdf_document
 ```{r load-packages, message = FALSE, warning = FALSE}
 library(tidyverse) 
 library(readxl)
+library(lubridate)
 ``` 
 
 # Load Data
@@ -73,6 +74,23 @@ In order to conduct our analysis, we will examine various combinations of mental
 
 
 In order to examine if there are some mental health issues that are impacted more strongly by certain public health measures, an analysis of variance (ANOVA) will be conducted on the data. This test will allow for the comparison across multiple means, where each mean is the global averages of mental health search term popularity for each public health measure. We hypothesize that there will be a statistically significant difference among mental illness prevalence as a result of certain public health measures. In order to reject the null hypothesis that there is no difference among certain public health measures disproportionately affecting certain mental illnesses, our p-value for this ANOVA would need to be less that 0.05 for a confidence level of 95%.
+
+```{r dataviz, message=FALSE, warning=FALSE}
+
+natl_avg <- google_trends %>% 
+  mutate(tidytime = mdy(DATE_START), ocd2 = as.integer(ocd), insomnia2 = as.integer(insomnia)) %>% 
+  filter(tidytime < mdy("1/1/2020")) %>% 
+  group_by(COUNTRY) %>% 
+  summarise(Ndepression = mean(depression), Nocd2 = mean(ocd2), Nanxiety = mean(anxiety), Ninsomnia2 = mean(insomnia2), Ntherapy = mean(therapy))
+
+lim_set <- merge(new_set, natl_avg, by=c("COUNTRY")) %>% mutate(relative_ocd = as.integer(ocd) / Nocd2) %>% filter(mdy(DATE_START) > mdy("3/1/2020"), mdy(DATE_START) < mdy("6/1/2020")) %>% select(DATE_START, relative_ocd)
+
+ggplot(data = lim_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) + geom_point() + geom_smooth() + ylim(0, 6) + xlab("Date (2020)") + ylab("Search requency for 'ocd', 1.0 = 2019 mean") + labs(title="Searches for OCD Spiked During First Covid Wave")
+
+
+
+```
+
 
 
 # References
