@@ -18,16 +18,7 @@ library(lubridate)
 ```{r load-data, message = FALSE}
 setwd('../')
 restrictions_worldwide <- readr::read_csv("data/phsm-severity-data-short.csv")
-# search_canada <- read_excel("data/search_term_canada.xlsx")
-# search_iran <- read_excel("data/search_term_iran.xlsx")
-# search_italy <- read_excel("data/search_term_italy.xlsx")
-# search_japan <- read_excel("data/search_term_japan.xlsx")
-# search_sk <- read_excel("data/search_term_sk.xlsx")
-# search_uk <- read_excel("data/search_term_uk.xlsx")
-# search_us <- read_excel("data/search_term_us.xlsx")
-# search_worldwide <- read_excel("data/search_term_worldwide.xlsx")
 google_trends <- readr::read_csv("data/google_trends_data.csv")
-
 ```
 
 ```{r clean-data}
@@ -35,42 +26,31 @@ google_trends <-
   google_trends %>%
   mutate(COUNTRY = nation) %>%
   mutate(DATE_START = week)
-
 match_dates<-merge(restrictions_worldwide, google_trends, by=c("COUNTRY","DATE_START")) 
-
 new_set <- 
   match_dates %>%
   select(-c(week, nation))
-
 new_set <- new_set %>%
   mutate(date = mdy(DATE_START))
 ```
 # Introduction and Data, including Research Questions
 
-
   From the beginning of the COVID-19 pandemic until now, the global community has suffered social, economic, and medical burdens in unprecedented levels. Though the physical health of individuals has been of paramount concern due to the high infectivity of COVID-19, with 237.88 million cases and 4.85 million deaths in as of October 2021, another burden on individuals, governments, and health systems has manifested itself in the form of rapidly deteriorating mental health (Our World in Data, 2021). It has been widely accepted that as the COVID-19 pandemic has progressed, mental health has decreased (Centers for Disease Control and Prevention, 2021). However, there is a much less comprehensive body of data surrounding how certain mitigation efforts specifically have impacted mental health, and which mental health conditions each restriction affects the most. For example, the Centers for Disease Control and Prevention (2021) acknowledge that social distancing may increase loneliness, stress, and anxiety, but it is less understood if masking is more directly correlated to obsessive compulsive disorder than it is to depression. Therefore, there is a need to fully understand these intricate relationships in order to drive efforts towards creating more individualized mental health treatments, as well as being able to predict what kind of mental health treatment will be needed in response to an increase in any given public health restriction.
 
   Our data analysis will answer the following research question: how do different COVID-19 mitigation efforts correlate to different types of mental illnesses? In doing so, our project will begin to uncover how certain restrictions may impact different mental illness depending on both the type of restriction and the type of mental illness. Our project will make use of two datasets and merge the datasets based on country in order to ensure there are sufficient relationships to explore in the data. The first dataset is of the frequency of different search terms related to mental health from January of 2019 through September of 2021 for a variety of countries. The data was collected from Google Trends and records the popularity of that search term for any given week in a given country. There is a new data value corresponding to each week, where the date collected is marked as the first of the week. This dataset will be used to gauge how concern with certain mental health topics, including anxiety, depression, obsessive compulsive disorder, therapists, and insomnia, has changed over the course of the pandemic. The second dataset tracks implementation of various mitigation efforts in different countries. This dataset was derived from the World Health Organization’s tracking of public health and social measures, and indices were calculated on the raw data in order to quantify the intensity of the restriction, whether the restriction is on masks, gatherings, businesses, schools, or travel. This data has daily values from January 2020 through September of 2020. Through a series of data tidying and wrangling steps, the data has been joined on both country and date. Since the search terms are weekly observations whereas restrictions are daily observations, the search term frequency will be kept constant throughout the week, but each observation for restrictions will be observed for changes. This will enable our analysis to observe how daily changes may affect weekly averages without altering or extrapolating data. 
-
-
 
 # Glimpse
 
 ```{r glimpse-data, message = F}
 
 ## This is the PHSM severity index data set.
-
 glimpse(restrictions_worldwide)
 
 ## This is the Google Search trend data set.
-
 glimpse(google_trends)
 
 ## This is the data set joining restrictions and search trends by both date and country.
-
 glimpse(new_set)
-
-
 ```
 
 # Data Analysis Plan
@@ -87,13 +67,8 @@ natl_avg <- google_trends %>%
   filter(tidytime < mdy("1/1/2020")) %>% 
   group_by(COUNTRY) %>% 
   summarise(Ndepression = mean(depression), Nocd2 = mean(ocd2), Nanxiety = mean(anxiety), Ninsomnia2 = mean(insomnia2), Ntherapy = mean(therapy))
-
 lim_set <- merge(new_set, natl_avg, by=c("COUNTRY")) %>% mutate(relative_ocd = as.integer(ocd) / Nocd2) %>% filter(mdy(DATE_START) > mdy("3/1/2020"), mdy(DATE_START) < mdy("6/1/2020")) %>% select(DATE_START, relative_ocd)
-
 ggplot(data = lim_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) + geom_point() + geom_smooth() + ylim(0, 6) + xlab("Date (2020)") + ylab("Search frequency for 'ocd', 1.0 = 2019 mean") + labs(title="Searches for OCD Spiked Amid First COVID-19 Wave")
-
-
-
 ```
 
 ```{r dataviz2, message=FALSE, warning=FALSE, fig.height = 3}
@@ -101,8 +76,6 @@ new_set %>%
   filter(COUNTRY == "Philippines") %>%
   ggplot() + geom_point(mapping = aes(y = SCHOOLS, x = date, color = "Red")) + geom_point(mapping = aes(y = anxiety, x = date, color = "Blue")) + labs(x = "Date", y = "Severity Index", title = "Comparing COVID-19 Restrictions on Schools and Google Searches for Anxiety", subtitle = "Philippines") + scale_color_manual(labels = c("Anxiety Searches", "School Restrictions"), values = c("blue", "red")) + guides(colour = guide_legend("Legend"))
 ```
-
-
 
 # References
 
