@@ -1,6 +1,6 @@
 ---
 title: "Project Proposal: The COVID-19 Epidemic, Public Health Restrictions, and Mental Health"
-subtitle: "due October 11, 2021 by 11:59 PM "
+subtitle: "due October 18, 2021 by 11:59 PM "
 author: "Matt Mohn, Melannie Nimmocks, and Katherine Beltz"
 date: ""
 output: pdf_document
@@ -41,6 +41,9 @@ match_dates<-merge(restrictions_worldwide, google_trends, by=c("COUNTRY","DATE_S
 new_set <- 
   match_dates %>%
   select(-c(week, nation))
+
+new_set <- new_set %>%
+  mutate(date = mdy(DATE_START))
 ```
 # Introduction and Data, including Research Questions
 
@@ -89,6 +92,12 @@ ggplot(data = lim_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) + g
 
 
 
+```
+
+```{r dataviz, message=FALSE, warning=FALSE}
+new_set %>%
+  filter(COUNTRY == "Philippines") %>%
+  ggplot() + geom_point(mapping = aes(y = SCHOOLS, x = date, color = "Red")) + geom_point(mapping = aes(y = anxiety, x = date, color = "Blue")) + labs(x = "Date", y = "Severity Index", title = "Comparing COVID-19 Restrictions on Schools and Google Searches for Anxiety", subtitle = "Philippines") + scale_color_manual(labels = c("Anxiety Searches", "School Restrictions"), values = c("blue", "red")) + guides(colour = guide_legend("Legend"))
 ```
 
 
