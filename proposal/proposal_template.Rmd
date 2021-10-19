@@ -5,6 +5,13 @@ author: "Matt Mohn, Melannie Nimocks, and Katherine Beltz"
 date: "10/18/2021"
 output: pdf_document
 ---
+SUMMARY OF CHANGES:
+
+We had points off for not specifying how we would line up the dates for our two 
+data sets and for not having visualizations. In our reproposal, we edited the introduction to be more specific about the merging process, added in the actual
+merged data, and have a few prelimiary visualizations of search term popularity
+and restriction index.
+
 
 # Load Packages
 
