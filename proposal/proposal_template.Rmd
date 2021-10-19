@@ -2,7 +2,7 @@
 title: "Project Proposal: The COVID-19 Epidemic, Public Health Restrictions, and Mental Health"
 subtitle: "due October 18, 2021 by 11:59 PM "
 author: "Matt Mohn, Melannie Nimocks, and Katherine Beltz"
-date: ""
+date: "10/18/2021"
 output: pdf_document
 ---
 
@@ -80,7 +80,7 @@ In order to conduct our analysis, we will examine various combinations of mental
 
 In order to examine if there are some mental health issues that are impacted more strongly by certain public health measures, an analysis of variance (ANOVA) will be conducted on the data. This test will allow for the comparison across multiple means, where each mean is the global averages of mental health search term popularity for each public health measure. We hypothesize that there will be a statistically significant difference among mental illness prevalence as a result of certain public health measures. In order to reject the null hypothesis that there is no difference among certain public health measures disproportionately affecting certain mental illnesses, our p-value for this ANOVA would need to be less that 0.05 for a confidence level of 95%.
 
-```{r dataviz, message=FALSE, warning=FALSE}
+```{r dataviz, message=FALSE, warning=FALSE, fig.height = 3}
 
 natl_avg <- google_trends %>% 
   mutate(tidytime = mdy(DATE_START), ocd2 = as.integer(ocd), insomnia2 = as.integer(insomnia)) %>% 
@@ -96,7 +96,7 @@ ggplot(data = lim_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) + g
 
 ```
 
-```{r dataviz2, message=FALSE, warning=FALSE}
+```{r dataviz2, message=FALSE, warning=FALSE, fig.height = 3}
 new_set %>%
   filter(COUNTRY == "Philippines") %>%
   ggplot() + geom_point(mapping = aes(y = SCHOOLS, x = date, color = "Red")) + geom_point(mapping = aes(y = anxiety, x = date, color = "Blue")) + labs(x = "Date", y = "Severity Index", title = "Comparing COVID-19 Restrictions on Schools and Google Searches for Anxiety", subtitle = "Philippines") + scale_color_manual(labels = c("Anxiety Searches", "School Restrictions"), values = c("blue", "red")) + guides(colour = guide_legend("Legend"))
