@@ -31,10 +31,17 @@ google_trends <- readr::read_csv("data/google_trends_data.csv")
 ```
 
 ```{r clean-data}
+# for each dataset, make the countries standardized
+restrictions_worldwide$COUNTRY <- gsub("United States Of America", "United States", restrictions_worldwide$COUNTRY)
+
+restrictions_worldwide$COUNTRY <- gsub("United Kingdom Of Great Britain And Northern Ireland", "United Kingdom", restrictions_worldwide$COUNTRY)
+
+
 google_trends <- 
   google_trends %>%
   mutate(COUNTRY = nation) %>%
   mutate(DATE_START = week)
+
 
 match_dates<-merge(restrictions_worldwide, google_trends, by=c("COUNTRY","DATE_START")) 
 
