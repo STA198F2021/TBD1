@@ -80,6 +80,33 @@ In order to conduct our analysis, we will examine various combinations of mental
 
 In order to examine if there are some mental health issues that are impacted more strongly by certain public health measures, an analysis of variance (ANOVA) will be conducted on the data. This test will allow for the comparison across multiple means, where each mean is the global averages of mental health search term popularity for each public health measure. We hypothesize that there will be a statistically significant difference among mental illness prevalence as a result of certain public health measures. In order to reject the null hypothesis that there is no difference among certain public health measures disproportionately affecting certain mental illnesses, our p-value for this ANOVA would need to be less that 0.05 for a confidence level of 95%.
 
+
+```{r summary_stats}
+
+summary_stat <-
+  data.frame(depression_mean = aggregate(depression ~ COUNTRY, new_set, mean),
+             depression_sd = aggregate(depression~COUNTRY, new_set, sd),
+             anxiety_mean = aggregate( anxiety ~ COUNTRY, new_set, sd ),
+             anxiety_sd = aggregate(anxiety~COUNTRY, new_set, sd),
+             ocd_mean = aggregate( ocd ~ COUNTRY, new_set, mean ),
+             ocd_sd = aggregate(ocd~COUNTRY, new_set, sd),
+             insomnia_mean = aggregate( insomnia ~ COUNTRY, new_set, mean ),
+             insomnia_sd = aggregate(insomnia~COUNTRY, new_set, sd),
+             therapy_mean = aggregate( therapy ~ COUNTRY, new_set, mean ),
+             therapy_sd = aggregate(therapy~COUNTRY, new_set, sd)
+)
+
+summary_stat <- subset(summary_stat, select = -c(                             
+                                                  depression_sd.COUNTRY, 
+                                                 anxiety_mean.COUNTRY, 
+                                            anxiety_sd.COUNTRY,ocd_mean.COUNTRY, 
+                      ocd_sd.COUNTRY,insomnia_mean.COUNTRY,insomnia_sd.COUNTRY, 
+                      therapy_mean.COUNTRY,therapy_sd.COUNTRY) )
+
+
+(rename(summary_stat, COUNTRY=depression_mean.COUNTRY))
+```
+
 ```{r dataviz, message=FALSE, warning=FALSE, fig.height = 3}
 
 natl_avg <- google_trends %>% 
