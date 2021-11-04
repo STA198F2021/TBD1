@@ -111,7 +111,7 @@ new_set %>%
 
 
 
-```{r, message=FALSE, warning=FALSE}
+```{r US-reg, message=FALSE, warning=FALSE}
 US_data <- new_set %>%
   filter(COUNTRY == "United States")
 
@@ -130,8 +130,190 @@ US_dep_reg <- linear_reg() %>%
 US_dep_reg %>%
   tidy()
 
+US_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_therapy_reg %>%
+  tidy()
+
+US_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_anxiety_reg %>%
+  tidy()
+
+US_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_insomnia_reg %>%
+  tidy()
 
 ```
+```{r Brazil-reg, message=FALSE, warning=FALSE}
+Brazil_data <- new_set %>%
+  filter(COUNTRY == "Brazil")
+
+
+Brazil_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_ocd_reg %>%
+  tidy()
+
+Brazil_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_dep_reg %>%
+  tidy()
+
+Brazil_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_therapy_reg %>%
+  tidy()
+
+Brazil_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_anxiety_reg %>%
+  tidy()
+
+Brazil_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_insomnia_reg %>%
+  tidy()
+```
+```{r Mex-reg, warning = FALSE, message = FALSE}
+Mexico_data <- new_set %>%
+  filter(COUNTRY == "Mexico")
+
+
+Mexico_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_ocd_reg %>%
+  tidy()
+
+Mexico_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_dep_reg %>%
+  tidy()
+
+Mexico_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_therapy_reg %>%
+  tidy()
+
+Mexico_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_anxiety_reg %>%
+  tidy()
+
+Mexico_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_insomnia_reg %>%
+  tidy()
+```
+
+```{r New-reg, message=FALSE, warning=FALSE}
+NewZealand_data <- new_set %>%
+  filter(COUNTRY == "New Zealand")
+
+
+NewZealand_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_ocd_reg %>%
+  tidy()
+
+NewZealand_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_dep_reg %>%
+  tidy()
+
+NewZealand_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_therapy_reg %>%
+  tidy()
+
+NewZealand_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_anxiety_reg %>%
+  tidy()
+
+NewZealand_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_insomnia_reg %>%
+  tidy()
+```
+```{r Ind-reg, message=FALSE, warning=FALSE}
+India_data <- new_set %>%
+  filter(COUNTRY == "India")
+
+
+India_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_ocd_reg %>%
+  tidy()
+
+India_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_dep_reg %>%
+  tidy()
+
+India_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_therapy_reg %>%
+  tidy()
+
+India_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_anxiety_reg %>%
+  tidy()
+
+India_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_insomnia_reg %>%
+  tidy()
+```
+
 
 
 # References
