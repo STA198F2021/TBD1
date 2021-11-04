@@ -12,6 +12,7 @@ output: pdf_document
 library(tidyverse) 
 library(readxl)
 library(lubridate)
+library(tidymodels)
 ``` 
 
 # Load Data
@@ -101,6 +102,36 @@ new_set %>%
   ggplot() + geom_point(mapping = aes(y = SCHOOLS, x = date, color = "Red")) + geom_point(mapping = aes(y = anxiety, x = date, color = "Blue")) + labs(x = "Date", y = "Severity Index", title = "Comparing COVID-19 Restrictions on Schools and Google Searches for Anxiety", subtitle = "Philippines") + scale_color_manual(labels = c("Anxiety Searches", "School Restrictions"), values = c("blue", "red")) + guides(colour = guide_legend("Legend"))
 ```
 
+# Linear Regression
+
+```{r}
+#new_set <- new_set %>%
+#  filter(MASKS != 0, TRAVEL != 0, GATHERINGS != 0, SCHOOL != 0, BUSINESSES != 0, MOVEMENTS != 0)
+```
+
+
+
+```{r, message=FALSE, warning=FALSE}
+US_data <- new_set %>%
+  filter(COUNTRY == "United States")
+
+
+US_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_ocd_reg %>%
+  tidy()
+
+US_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_dep_reg %>%
+  tidy()
+
+
+```
 
 
 # References
