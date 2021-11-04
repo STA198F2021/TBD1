@@ -82,16 +82,29 @@ In order to examine if there are some mental health issues that are impacted mor
 
 
 ```{r summary_stats}
-depression_stats <- aggregate( depression ~ COUNTRY, new_set, mean )
 
-anxiety_stats <- aggregate( anxiety ~ COUNTRY, new_set, mean )
+summary_stat <-
+  data.frame(depression_mean = aggregate(depression ~ COUNTRY, new_set, mean),
+             depression_sd = aggregate(depression~COUNTRY, new_set, sd),
+             anxiety_mean = aggregate( anxiety ~ COUNTRY, new_set, sd ),
+             anxiety_sd = aggregate(anxiety~COUNTRY, new_set, sd),
+             ocd_mean = aggregate( ocd ~ COUNTRY, new_set, mean ),
+             ocd_sd = aggregate(ocd~COUNTRY, new_set, sd),
+             insomnia_mean = aggregate( insomnia ~ COUNTRY, new_set, mean ),
+             insomnia_sd = aggregate(insomnia~COUNTRY, new_set, sd),
+             therapy_mean = aggregate( therapy ~ COUNTRY, new_set, mean ),
+             therapy_sd = aggregate(therapy~COUNTRY, new_set, sd)
+)
 
-ocd_stats <- aggregate( ocd ~ COUNTRY, new_set, mean )
+summary_stat <- subset(summary_stat, select = -c(                             
+                                                  depression_sd.COUNTRY, 
+                                                 anxiety_mean.COUNTRY, 
+                                            anxiety_sd.COUNTRY,ocd_mean.COUNTRY, 
+                      ocd_sd.COUNTRY,insomnia_mean.COUNTRY,insomnia_sd.COUNTRY, 
+                      therapy_mean.COUNTRY,therapy_sd.COUNTRY) )
 
-insomnia_stats <- aggregate( insomnia ~ COUNTRY, new_set, mean )
 
-therapy_stats <- aggregate( therapy ~ COUNTRY, new_set, mean )
-
+(rename(summary_stat, COUNTRY=depression_mean.COUNTRY))
 ```
 
 ```{r dataviz, message=FALSE, warning=FALSE, fig.height = 3}
