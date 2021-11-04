@@ -18,14 +18,6 @@ library(lubridate)
 ```{r load-data, message = FALSE}
 setwd('../')
 restrictions_worldwide <- readr::read_csv("data/phsm-severity-data-short.csv")
-# search_canada <- read_excel("data/search_term_canada.xlsx")
-# search_iran <- read_excel("data/search_term_iran.xlsx")
-# search_italy <- read_excel("data/search_term_italy.xlsx")
-# search_japan <- read_excel("data/search_term_japan.xlsx")
-# search_sk <- read_excel("data/search_term_sk.xlsx")
-# search_uk <- read_excel("data/search_term_uk.xlsx")
-# search_us <- read_excel("data/search_term_us.xlsx")
-# search_worldwide <- read_excel("data/search_term_worldwide.xlsx")
 google_trends <- readr::read_csv("data/google_trends_data.csv")
 
 ```
