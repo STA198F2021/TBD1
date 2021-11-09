@@ -107,8 +107,17 @@ summary_stat <- subset(summary_stat, select = -c(
 
 
 summary_stat<-(rename(summary_stat, COUNTRY=depression_mean.COUNTRY))
+summary_stat_b <- summary_stat %>% select(COUNTRY, depression_mean.depression, depression_sd.depression, anxiety_mean.anxiety, anxiety_sd.anxiety)
+summary_stat_b <- summary_stat_b %>% rename(nation = COUNTRY, depression_mean = depression_mean.depression, depression_sd = depression_sd.depression, anxiety_mean = anxiety_mean.anxiety, anxiety_sd = anxiety_sd.anxiety)
 
-#knitr::kable(summary_stat)
+summary_stat_c <- summary_stat %>% select(COUNTRY, therapy_mean.therapy, therapy_sd.therapy, insomnia_mean.insomnia, insomnia_sd.insomnia, ocd_mean.ocd, ocd_sd.ocd)
+summary_stat_c <- summary_stat_c %>% rename(nation = COUNTRY, therapy_mean = therapy_mean.therapy, therapy_sd = therapy_sd.therapy, insomnia_mean = insomnia_mean.insomnia, insomnia_sd = insomnia_sd.insomnia, ocd_mean = ocd_mean.ocd, ocd_sd = ocd_sd.ocd)
+
+knitr::kable(summary_stat_b,digits=3,caption="Summary Statistics for Depression and Anxiety") 
+
+knitr::kable(summary_stat_c,digits=3,caption="Summary Statistics for Therapy, Insomnia and OCD")
+
+
 ```
 
 ```{r dataviz, message=FALSE, warning=FALSE, fig.height = 3}
