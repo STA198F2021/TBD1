@@ -104,7 +104,7 @@ summary_stat <- subset(summary_stat, select = -c(
                       therapy_mean.COUNTRY,therapy_sd.COUNTRY) )
 
 
-(rename(summary_stat, COUNTRY=depression_mean.COUNTRY))
+summary_stat<-(rename(summary_stat, COUNTRY=depression_mean.COUNTRY))
 ```
 
 ```{r dataviz, message=FALSE, warning=FALSE, fig.height = 3}
