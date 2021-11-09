@@ -149,13 +149,9 @@ new_set %>%
 
 # Linear Regression
 
-<<<<<<< HEAD
-```{r create-data-sets, message=FALSE, warning=FALSE}
-=======
-## United States
 
-```{r US-reg, message=FALSE, warning=FALSE, echo=FALSE}
->>>>>>> 3bf33016f446c9bab7e57851bc3b50bc68c58567
+```{r create-data-sets, message=FALSE, warning=FALSE}
+
 US_data <- lim_set %>%
   filter(COUNTRY == "United States")
 
@@ -171,20 +167,12 @@ NewZealand_data <- lim_set %>%
 India_data <- lim_set %>%
   filter(COUNTRY == "India")
 
-<<<<<<< HEAD
+
 ```
 
 ```{r final-regs, message=FALSE, warning=FALSE}
 # United States
-=======
-US_dep_reg %>%
-  tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Depression") 
-```
 
-
-
-```{r s2, echo=FALSE, message=FALSE, echo=FALSE}
->>>>>>> 3bf33016f446c9bab7e57851bc3b50bc68c58567
 US_relative_therapy_reg <- linear_reg() %>%
   set_engine("lm") %>%
   fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
@@ -241,18 +229,6 @@ India_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: India, Search: Insomnia") 
 
 ```
-<<<<<<< HEAD
-=======
-
-
-### Brazil
-
-
-```{r Brazil-reg, message=FALSE, warning=FALSE, echo=FALSE}
-Brazil_data <- lim_set %>%
-  filter(COUNTRY == "Brazil")
->>>>>>> 3bf33016f446c9bab7e57851bc3b50bc68c58567
-
 
 ```{r US-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE}
 
@@ -270,7 +246,6 @@ US_dep_reg <- linear_reg() %>%
 US_dep_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Depression") 
 
-
 US_relative_insomnia_reg <- linear_reg() %>%
   set_engine("lm") %>%
   fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
@@ -279,6 +254,7 @@ US_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Insomnia") 
 
 ```
+
 ```{r Brazil-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE}
 
 Brazil_dep_reg <- linear_reg() %>%
@@ -303,17 +279,8 @@ Brazil_relative_insomnia_reg <- linear_reg() %>%
 Brazil_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Insomnia") 
 ```
-<<<<<<< HEAD
+
 ```{r Mex-reg, warning = FALSE, message = FALSE}
-=======
-
-### Mexico
-
-```{r Mex-reg, warning = FALSE, message = FALSE, echo=FALSE}
-Mexico_data <- lim_set %>%
-  filter(COUNTRY == "Mexico")
->>>>>>> 3bf33016f446c9bab7e57851bc3b50bc68c58567
-
 
 Mexico_relative_ocd_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -339,16 +306,8 @@ Mexico_relative_anxiety_reg %>%
 
 ```
 
-<<<<<<< HEAD
+
 ```{r New-reg, message=FALSE, warning=FALSE}
-=======
-### New Zealand
-
-```{r New-reg, message=FALSE, warning=FALSE, echo=FALSE}
-NewZealand_data <- lim_set %>%
-  filter(COUNTRY == "New Zealand")
->>>>>>> 3bf33016f446c9bab7e57851bc3b50bc68c58567
-
 
 NewZealand_relative_ocd_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -385,17 +344,8 @@ NewZealand_relative_insomnia_reg <- linear_reg() %>%
 NewZealand_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: New Zealand, Search: Insomnia") 
 ```
-<<<<<<< HEAD
+
 ```{r Ind-reg, message=FALSE, warning=FALSE}
-=======
-
-### India 
-
-```{r Ind-reg, message=FALSE, warning=FALSE, echo=FALSE}
-India_data <- lim_set %>%
-  filter(COUNTRY == "India")
->>>>>>> 3bf33016f446c9bab7e57851bc3b50bc68c58567
-
 
 India_relative_ocd_reg <- linear_reg() %>%
   set_engine("lm") %>%
