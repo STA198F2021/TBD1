@@ -139,11 +139,85 @@ new_set %>%
 ```
 
 
-
-```{r US-reg, message=FALSE, warning=FALSE}
+```{r create-data-sets, message=FALSE, warning=FALSE}
 US_data <- lim_set %>%
   filter(COUNTRY == "United States")
 
+Brazil_data <- lim_set %>%
+  filter(COUNTRY == "Brazil")
+
+Mexico_data <- lim_set %>%
+  filter(COUNTRY == "Mexico")
+
+NewZealand_data <- lim_set %>%
+  filter(COUNTRY == "New Zealand")
+
+India_data <- lim_set %>%
+  filter(COUNTRY == "India")
+
+```
+
+```{r final-regs, message=FALSE, warning=FALSE}
+# United States
+US_relative_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_relative_therapy_reg %>%
+  tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Therapy") 
+
+US_relative_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_relative_anxiety_reg %>%
+  tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Anxiety") 
+
+# Brazil
+
+Brazil_relative_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_relative_ocd_reg %>%
+  tidy() %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: OCD")
+
+Brazil_relative_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_relative_therapy_reg %>%
+  tidy() %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Therapy") 
+
+# Mexico
+
+Mexico_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_dep_reg %>%
+  tidy() %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Depression") 
+
+Mexico_relative_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_relative_insomnia_reg %>%
+  tidy() %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Insomnia") 
+
+# India
+
+India_relative_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_relative_insomnia_reg %>%
+  tidy() %>%   knitr::kable(digits=4,caption="Nation: India, Search: Insomnia") 
+
+```
+
+
+```{r US-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE}
 
 US_relative_ocd_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -159,19 +233,6 @@ US_dep_reg <- linear_reg() %>%
 US_dep_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Depression") 
 
-US_relative_therapy_reg <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
-
-US_relative_therapy_reg %>%
-  tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Therapy") 
-
-US_relative_anxiety_reg <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(relative_anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
-
-US_relative_anxiety_reg %>%
-  tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Anxiety") 
 
 US_relative_insomnia_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -181,17 +242,7 @@ US_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Insomnia") 
 
 ```
-```{r Brazil-reg, message=FALSE, warning=FALSE}
-Brazil_data <- lim_set %>%
-  filter(COUNTRY == "Brazil")
-
-
-Brazil_relative_ocd_reg <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(relative_ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
-
-Brazil_relative_ocd_reg %>%
-  tidy() %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: OCD") 
+```{r Brazil-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE}
 
 Brazil_dep_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -200,12 +251,6 @@ Brazil_dep_reg <- linear_reg() %>%
 Brazil_dep_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Depression") 
 
-Brazil_relative_therapy_reg <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
-
-Brazil_relative_therapy_reg %>%
-  tidy() %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Therapy") 
 
 Brazil_relative_anxiety_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -222,8 +267,6 @@ Brazil_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Insomnia") 
 ```
 ```{r Mex-reg, warning = FALSE, message = FALSE}
-Mexico_data <- lim_set %>%
-  filter(COUNTRY == "Mexico")
 
 
 Mexico_relative_ocd_reg <- linear_reg() %>%
@@ -233,12 +276,6 @@ Mexico_relative_ocd_reg <- linear_reg() %>%
 Mexico_relative_ocd_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: OCD") 
 
-Mexico_dep_reg <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(relative_depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
-
-Mexico_dep_reg %>%
-  tidy() %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Depression") 
 
 Mexico_relative_therapy_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -254,17 +291,9 @@ Mexico_relative_anxiety_reg <- linear_reg() %>%
 Mexico_relative_anxiety_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Anxiety") 
 
-Mexico_relative_insomnia_reg <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
-
-Mexico_relative_insomnia_reg %>%
-  tidy() %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Insomnia") 
 ```
 
 ```{r New-reg, message=FALSE, warning=FALSE}
-NewZealand_data <- lim_set %>%
-  filter(COUNTRY == "New Zealand")
 
 
 NewZealand_relative_ocd_reg <- linear_reg() %>%
@@ -303,8 +332,6 @@ NewZealand_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: New Zealand, Search: Insomnia") 
 ```
 ```{r Ind-reg, message=FALSE, warning=FALSE}
-India_data <- lim_set %>%
-  filter(COUNTRY == "India")
 
 
 India_relative_ocd_reg <- linear_reg() %>%
@@ -335,12 +362,6 @@ India_relative_anxiety_reg <- linear_reg() %>%
 India_relative_anxiety_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: India, Search: Anxiety") 
 
-India_relative_insomnia_reg <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
-
-India_relative_insomnia_reg %>%
-  tidy() %>%   knitr::kable(digits=4,caption="Nation: India, Search: Insomnia") 
 ```
 
 
