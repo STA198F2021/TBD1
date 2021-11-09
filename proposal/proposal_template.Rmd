@@ -25,7 +25,7 @@ google_trends <- readr::read_csv("data/google_trends_data_c.csv")
 
 ```
 
-```{r clean-data}
+```{r clean-data, echo=FALSE}
 # for each dataset, make the countries standardized
 restrictions_worldwide$COUNTRY <- gsub("United States Of America", "United States", restrictions_worldwide$COUNTRY)
 
@@ -58,7 +58,7 @@ new_set <- new_set %>%
 
 # Glimpse
 
-```{r glimpse-data, message = F}
+```{r glimpse-data, message = F, echo=FALSE}
 
 ## This is the PHSM severity index data set.
 
@@ -83,7 +83,7 @@ In order to conduct our analysis, we will examine various combinations of mental
 In order to examine if there are some mental health issues that are impacted more strongly by certain public health measures, an analysis of variance (ANOVA) will be conducted on the data. This test will allow for the comparison across multiple means, where each mean is the global averages of mental health search term popularity for each public health measure. We hypothesize that there will be a statistically significant difference among mental illness prevalence as a result of certain public health measures. In order to reject the null hypothesis that there is no difference among certain public health measures disproportionately affecting certain mental illnesses, our p-value for this ANOVA would need to be less that 0.05 for a confidence level of 95%.
 
 
-```{r summary_stats}
+```{r summary_stats, echo=FALSE}
 
 summary_stat <-
   data.frame(depression_mean = aggregate(depression ~ COUNTRY, new_set, mean),
@@ -120,7 +120,7 @@ knitr::kable(summary_stat_c,digits=3,caption="Summary Statistics for Therapy, In
 
 ```
 
-```{r dataviz, message=FALSE, warning=FALSE, fig.height = 3}
+```{r dataviz, message=FALSE, warning=FALSE, fig.height = 3, echo=FALSE}
 
 natl_avg <- google_trends %>% 
   mutate(tidytime = mdy(DATE_START), ocd2 = as.integer(ocd), insomnia2 = as.integer(insomnia)) %>% 
@@ -144,16 +144,14 @@ new_set %>%
   ggplot() + geom_point(mapping = aes(y = SCHOOLS, x = date, color = "Red")) + geom_point(mapping = aes(y = anxiety, x = date, color = "Blue")) + labs(x = "Date", y = "Severity Index", title = "Comparing COVID-19 Restrictions on Schools and Google Searches for Anxiety", subtitle = "India") + scale_color_manual(labels = c("Anxiety Searches", "School Restrictions"), values = c("blue", "red")) + guides(colour = guide_legend("Legend"))
 ```
 
+
+\newpage
+
 # Linear Regression
 
-```{r}
-#new_set <- new_set %>%
-#  filter(MASKS != 0, TRAVEL != 0, GATHERINGS != 0, SCHOOL != 0, BUSINESSES != 0, MOVEMENTS != 0)
-```
+## United States
 
-
-
-```{r US-reg, message=FALSE, warning=FALSE}
+```{r US-reg, message=FALSE, warning=FALSE, echo=FALSE}
 US_data <- lim_set %>%
   filter(COUNTRY == "United States")
 
@@ -174,7 +172,8 @@ US_dep_reg %>%
 ```
 
 
-```{r s2, echo=FALSE, message=FALSE}
+
+```{r s2, echo=FALSE, message=FALSE, echo=FALSE}
 US_relative_therapy_reg <- linear_reg() %>%
   set_engine("lm") %>%
   fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
@@ -197,7 +196,12 @@ US_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Insomnia") 
 
 ```
-```{r Brazil-reg, message=FALSE, warning=FALSE}
+
+
+### Brazil
+
+
+```{r Brazil-reg, message=FALSE, warning=FALSE, echo=FALSE}
 Brazil_data <- lim_set %>%
   filter(COUNTRY == "Brazil")
 
@@ -237,7 +241,10 @@ Brazil_relative_insomnia_reg <- linear_reg() %>%
 Brazil_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Insomnia") 
 ```
-```{r Mex-reg, warning = FALSE, message = FALSE}
+
+### Mexico
+
+```{r Mex-reg, warning = FALSE, message = FALSE, echo=FALSE}
 Mexico_data <- lim_set %>%
   filter(COUNTRY == "Mexico")
 
@@ -278,7 +285,9 @@ Mexico_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Insomnia") 
 ```
 
-```{r New-reg, message=FALSE, warning=FALSE}
+### New Zealand
+
+```{r New-reg, message=FALSE, warning=FALSE, echo=FALSE}
 NewZealand_data <- lim_set %>%
   filter(COUNTRY == "New Zealand")
 
@@ -318,7 +327,10 @@ NewZealand_relative_insomnia_reg <- linear_reg() %>%
 NewZealand_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: New Zealand, Search: Insomnia") 
 ```
-```{r Ind-reg, message=FALSE, warning=FALSE}
+
+### India 
+
+```{r Ind-reg, message=FALSE, warning=FALSE, echo=FALSE}
 India_data <- lim_set %>%
   filter(COUNTRY == "India")
 
