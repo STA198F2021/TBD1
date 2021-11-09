@@ -343,6 +343,65 @@ India_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: India, Search: Insomnia") 
 ```
 
+```{r residualPlots}
+
+US_therapy_aug <- augment(US_relative_therapy_reg$fit)
+
+ggplot(US_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Therapy Searches in USA", y = "Residuals")
+
+
+US_anxiety_aug <- augment(US_relative_anxiety_reg$fit)
+
+ggplot(US_anxiety_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Anxiety Searches in USA", y = "Residuals")
+
+
+Brazil_ocd_aug <- augment(Brazil_relative_ocd_reg$fit)
+
+ggplot(Brazil_ocd_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted OCD Searches in Brazil", y = "Residuals")
+
+
+
+Brazil_therapy_aug <- augment(Brazil_relative_therapy_reg$fit)
+
+ggplot(Brazil_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Therapy Searches in Brazil", y = "Residuals")
+
+
+Mexico_dep_aug <- augment(Mexico_dep_reg$fit)
+
+ggplot(Mexico_dep_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Depression Searches in Mexico", y = "Residuals")
+
+
+Mexico_insomnia_aug <- augment(Mexico_relative_insomnia_reg$fit)
+
+ggplot(Mexico_insomnia_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Insomnia Searches in Mexico", y = "Residuals")
+
+
+India_insomnia_aug <- augment(India_relative_insomnia_reg$fit)
+
+ggplot(India_insomnia_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Insomnia Searches in India", y = "Residuals")
+
+```
 
 
 # References
