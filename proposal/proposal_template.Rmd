@@ -448,10 +448,7 @@ ggplot(India_insomnia_aug, mapping = aes(x = .fitted, y = .resid)) +
 
 The residual plots above were created to understand any concern over the linear regression models applied to the data. Residual plots were only created for models that showed significant findings, as these are the data sets the rest of the interpretation will primarily focus on. 
 
---may need to redo some models?
-Anxiety in USA, OCD in Brazil, depression in Mexico are not causes for concern
-
-Therapy in Brazil (skewed right) and insomnia in Mexico (okay, not great) and insomnia in India (skewed left) and therapy in USA (okay, not great) may indicate need for another model.
+None of the residual plots have a clear pattern. Although some of the residual plots are concentrated on one side of the plot, there is still no discernible pattern in the variation, indicating that the models are appropriate for the data. 
 
 # References
 
