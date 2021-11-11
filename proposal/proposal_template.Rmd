@@ -8,7 +8,7 @@ output: pdf_document
 
 # Load Packages
 
-```{r load-packages, message = FALSE, warning = FALSE}
+```{r load-packages, message = FALSE, warning = FALSE, echo = FALSE}
 library(tidyverse) 
 library(readxl)
 library(lubridate)
@@ -18,7 +18,7 @@ library(xtable)
 ``` 
 
 # Load Data
-```{r load-data, message = FALSE}
+```{r load-data, message = FALSE, echo = FALSE}
 setwd('../')
 restrictions_worldwide <- readr::read_csv("data/phsm-severity-data-short.csv")
 google_trends <- readr::read_csv("data/google_trends_data_c.csv")
@@ -62,15 +62,15 @@ new_set <- new_set %>%
 
 ## This is the PHSM severity index data set.
 
-glimpse(restrictions_worldwide)
+#glimpse(restrictions_worldwide, n = 3)
 
 ## This is the Google Search trend data set.
 
-glimpse(google_trends)
+#glimpse(google_trends, n =3)
 
 ## This is the data set joining restrictions and search trends by both date and country.
 
-glimpse(new_set)
+glimpse(new_set, n =3)
 
 
 ```
@@ -148,19 +148,16 @@ As the next step in exploratory data analysis, the graph above was created to ex
 
 Statistical analysis provided further in the report explores the significance, if any, of this increase.
 
-```{r dataviz2, message=FALSE, warning=FALSE, fig.height = 3}
+```{r dataviz2, message=FALSE, warning=FALSE, fig.height = 3, echo = FALSE, include = FALSE}
 new_set %>%
   filter(COUNTRY == "India") %>%
   ggplot() + geom_point(mapping = aes(y = SCHOOLS, x = date, color = "Red")) + geom_point(mapping = aes(y = anxiety, x = date, color = "Blue")) + labs(x = "Date", y = "Severity Index", title = "Comparing COVID-19 Restrictions on Schools and Google Searches for Anxiety", subtitle = "India") + scale_color_manual(labels = c("Anxiety Searches", "School Restrictions"), values = c("blue", "red")) + guides(colour = guide_legend("Legend"))
 ```
 
-
-\newpage
-
 # Linear Regression
 
 
-```{r create-data-sets, message=FALSE, warning=FALSE}
+```{r create-data-sets, message=FALSE, warning=FALSE, echo = FALSE}
 
 US_data <- lim_set %>%
   filter(COUNTRY == "United States")
@@ -180,7 +177,7 @@ India_data <- lim_set %>%
 
 ```
 
-```{r final-regs, message=FALSE, warning=FALSE}
+```{r final-regs, message=FALSE, warning=FALSE, echo = FALSE}
 # United States
 
 US_relative_therapy_reg <- linear_reg() %>%
@@ -240,7 +237,7 @@ India_relative_insomnia_reg %>%
 
 ```
 
-```{r US-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE}
+```{r US-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE, echo = FALSE}
 
 US_relative_ocd_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -265,7 +262,7 @@ US_relative_insomnia_reg %>%
 
 ```
 
-```{r Brazil-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE}
+```{r Brazil-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE, echo = FALSE}
 
 Brazil_dep_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -290,7 +287,7 @@ Brazil_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Insomnia") 
 ```
 
-```{r Mex-reg, warning = FALSE, message = FALSE}
+```{r Mex-reg, warning = FALSE, message = FALSE, include = FALSE, echo = FALSE}
 
 Mexico_relative_ocd_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -317,7 +314,7 @@ Mexico_relative_anxiety_reg %>%
 ```
 
 
-```{r New-reg, message=FALSE, warning=FALSE}
+```{r New-reg, message=FALSE, warning=FALSE, include = FALSE, echo = FALSE}
 
 NewZealand_relative_ocd_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -355,7 +352,7 @@ NewZealand_relative_insomnia_reg %>%
   tidy() %>%   knitr::kable(digits=4,caption="Nation: New Zealand, Search: Insomnia") 
 ```
 
-```{r Ind-reg, message=FALSE, warning=FALSE}
+```{r Ind-reg, message=FALSE, warning=FALSE, include = FALSE, echo = FALSE}
 
 India_relative_ocd_reg <- linear_reg() %>%
   set_engine("lm") %>%
@@ -387,7 +384,7 @@ India_relative_anxiety_reg %>%
 
 ```
 
-```{r residualPlots}
+```{r residualPlots, echo = FALSE, fig.height = 3, fig.width = 3}
 
 US_therapy_aug <- augment(US_relative_therapy_reg$fit)
 
