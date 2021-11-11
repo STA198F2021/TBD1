@@ -120,6 +120,12 @@ knitr::kable(summary_stat_c,digits=3,caption="Summary Statistics for Therapy, In
 
 ```
 
+The tables above summarize the mental health search term frequency data over the period of study from January 2020 through September 2020. The mean of health search term frequency data over this time period were calculated, along with the standard deviation, for the six countries of focus. As seen in Table 1 and Table 2 above, anxiety as a search topic has the lowest mean frequency over the period of study. Therapy appears to have the highest mean frequency over the period of study. 
+
+Interestingly, insomnia and depression as search topics have the greatest range of mean frequencies between each country. For insomnia, there is a range of about 53 points, with the minimum score from Italy and the maximum score from the United States. The United States also holds the highest score for depression search frequency, with a low from India, resulting in a range of 59.
+
+It is important to note that the standard deviations for many of these measurements is fairly high. This is to be expected since the measurments are taken over a time period of rapidly changing social distancing policies and COVID severity across the globe. Further statistical analyses in this report determine how much this affects our understanding of this data.
+
 ```{r dataviz, message=FALSE, warning=FALSE, fig.height = 3, echo=FALSE}
 
 natl_avg <- google_trends %>% 
@@ -401,7 +407,6 @@ ggplot(Brazil_ocd_aug, mapping = aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.5) +
   geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
   labs(x = "Predicted OCD Searches in Brazil", y = "Residuals")
-
 
 
 Brazil_therapy_aug <- augment(Brazil_relative_therapy_reg$fit)
