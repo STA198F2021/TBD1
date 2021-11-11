@@ -138,11 +138,15 @@ lim_set <- merge(new_set, natl_avg, by=c("COUNTRY")) %>% mutate(relative_ocd = 1
 
 graph_set <- lim_set %>% filter(mdy(DATE_START) > mdy("3/1/2020"), mdy(DATE_START) < mdy("7/1/2020")) %>% select(DATE_START, relative_ocd)
 
-ggplot(data = graph_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) + geom_point() + geom_smooth() + ylim(50,250) + xlab("Date (2020)") + ylab("Search frequency for 'ocd', 100 = 2019 mean") + labs(title="Searches for OCD Spiked Amid First COVID-19 Wave")
+ggplot(data = graph_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) + geom_point() + geom_smooth() + ylim(50,250) + xlab("Date (2020)") + ylab("Search frequency for 'ocd', 100 = 2019 mean") + labs(title="OCD Searches Spiked In First COVID Wave")
 
 
 
 ```
+
+As the next step in exploratory data analysis, the graph above was created to examine mental health search terms as a function of time, regardless of any COVID restrictions or of any specific country. This graph was made for all search terms, but it was found that the graph for OCD search topic frequency provided the most insight into how individuals' mental state shifted during the pandemic. By using geom_smooth, the line on the plot demonstrates a slight increase in frequency of searching for OCD during the first wave of COVID. From a qualitative standpoint, this increase would align with the notion that individuals became concerned with signs of OCD as much of the population became highly obsessive over cleanliness, which is often understood as OCD in the general population despite this definition being slightly inaccurate. It could also be due to individuals demonstrating signs of a compulsive need to follow certain rituals in order to feel safe from COVID. 
+
+Statistical analysis provided further in the report explores the significance, if any, of this increase.
 
 ```{r dataviz2, message=FALSE, warning=FALSE, fig.height = 3}
 new_set %>%
