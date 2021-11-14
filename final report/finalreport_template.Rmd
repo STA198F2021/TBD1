@@ -1,7 +1,456 @@
 ---
-title: "Final Report"
+title: "Final Report: The COVID-19 Pandemic, Public Health Restrictions, and Mental Health"
 subtitle: "due November 16, 2021 by 11:59 PM "
-author: "Your names and team name here"
-date: ""
+author: "Katherine Beltz, Matt Mohn, Melannie Nimocks"
+date: "11/16/2021"
 output: pdf_document
 ---
+
+# Load Packages
+
+```{r load-packages, message = FALSE, warning = FALSE, echo = FALSE}
+library(tidyverse) 
+library(readxl)
+library(lubridate)
+library(tidymodels)
+library(knitr)
+library(xtable)
+``` 
+
+# Load Data
+```{r load-data, message = FALSE, echo = FALSE}
+setwd('../')
+restrictions_worldwide <- readr::read_csv("data/phsm-severity-data-short.csv")
+google_trends <- readr::read_csv("data/google_trends_data_c.csv")
+
+```
+
+```{r clean-data, echo=FALSE}
+# for each dataset, make the countries standardized
+restrictions_worldwide$COUNTRY <- gsub("United States Of America", "United States", restrictions_worldwide$COUNTRY)
+
+restrictions_worldwide$COUNTRY <- gsub("United Kingdom Of Great Britain And Northern Ireland", "United Kingdom", restrictions_worldwide$COUNTRY)
+
+
+google_trends <- 
+  google_trends %>%
+  mutate(COUNTRY = nation) %>%
+  mutate(DATE_START = week)
+
+
+match_dates<-merge(restrictions_worldwide, google_trends, by=c("COUNTRY","DATE_START")) 
+
+new_set <- 
+  match_dates %>%
+  select(-c(week, nation))
+
+new_set <- new_set %>%
+  mutate(date = mdy(DATE_START))
+```
+# Introduction and Data, including Research Questions
+
+
+  From the beginning of the COVID-19 pandemic until now, the global community has suffered social, economic, and medical burdens in unprecedented levels. Though the physical health of individuals has been of paramount concern due to the high infectivity of COVID-19, with 237.88 million cases and 4.85 million deaths in as of October 2021, another burden on individuals, governments, and health systems has manifested itself in the form of rapidly deteriorating mental health (Our World in Data, 2021). It has been widely accepted that as the COVID-19 pandemic has progressed, mental health has decreased (Centers for Disease Control and Prevention, 2021). However, there is a much less comprehensive body of data surrounding how certain mitigation efforts specifically have impacted mental health, and which mental health conditions each restriction affects the most. For example, the Centers for Disease Control and Prevention (2021) acknowledge that social distancing may increase loneliness, stress, and anxiety, but it is less understood if masking is more directly correlated to obsessive compulsive disorder than it is to depression. Therefore, there is a need to fully understand these intricate relationships in order to drive efforts towards creating more individualized mental health treatments, as well as being able to predict what kind of mental health treatment will be needed in response to an increase in any given public health restriction.
+
+  Our data analysis will answer the following research question: how do different COVID-19 mitigation efforts correlate to different types of mental illnesses? In doing so, our project will begin to uncover how certain restrictions may impact different mental illness depending on both the type of restriction and the type of mental illness. Our project will make use of two datasets and merge the datasets based on country in order to ensure there are sufficient relationships to explore in the data. The first dataset is of the frequency of different search terms related to mental health from January of 2019 through September of 2021 for a variety of countries. The data was collected from Google Trends and records the popularity of that search term for any given week in a given country. There is a new data value corresponding to each week, where the date collected is marked as the first of the week. This dataset will be used to gauge how concern with certain mental health topics, including anxiety, depression, obsessive compulsive disorder, therapists, and insomnia, has changed over the course of the pandemic. The second dataset tracks implementation of various mitigation efforts in different countries. This dataset was derived from the World Health Organization’s tracking of public health and social measures, and indices were calculated on the raw data in order to quantify the intensity of the restriction, whether the restriction is on masks, gatherings, businesses, schools, or travel. This data has daily values from January 2020 through September of 2020. Through a series of data tidying and wrangling steps, the data has been joined on both country and date. Since the search terms are weekly observations whereas restrictions are daily observations, the search term frequency will be kept constant throughout the week, but each observation for restrictions will be observed for changes. This will enable our analysis to observe how daily changes may affect weekly averages without altering or extrapolating data. 
+
+
+
+# Glimpse
+
+```{r glimpse-data, message = F, echo=FALSE}
+
+## This is the PHSM severity index data set.
+
+#glimpse(restrictions_worldwide, n = 3)
+
+## This is the Google Search trend data set.
+
+#glimpse(google_trends, n =3)
+
+## This is the data set joining restrictions and search trends by both date and country.
+
+glimpse(new_set, n =3)
+
+
+```
+
+# Data Analysis Plan
+
+In order to conduct our analysis, we will examine various combinations of mental health search term popularity as explained by the index of public health measure severity. Mental health search term popularity will be used as an indicator for what mental illness is most prevalent during a given time frame, and will be analyzed alongside what restriction was most intense for the same time frame. This relationship will be explored across various countries in order to account for the differences in public health measures that each government enacted throughout the course of the pandemic, as well as determine global averages for mental health search term popularity for each public health measure. 
+
+
+In order to examine if there are some mental health issues that are impacted more strongly by certain public health measures, an analysis of variance (ANOVA) will be conducted on the data. This test will allow for the comparison across multiple means, where each mean is the global averages of mental health search term popularity for each public health measure. We hypothesize that there will be a statistically significant difference among mental illness prevalence as a result of certain public health measures. In order to reject the null hypothesis that there is no difference among certain public health measures disproportionately affecting certain mental illnesses, our p-value for this ANOVA would need to be less that 0.05 for a confidence level of 95%.
+
+
+```{r summary_stats, echo=FALSE}
+
+summary_stat <-
+  data.frame(depression_mean = aggregate(depression ~ COUNTRY, new_set, mean),
+             depression_sd = aggregate(depression~COUNTRY, new_set, sd),
+             anxiety_mean = aggregate( anxiety ~ COUNTRY, new_set, sd ),
+             anxiety_sd = aggregate(anxiety~COUNTRY, new_set, sd),
+             ocd_mean = aggregate( ocd ~ COUNTRY, new_set, mean ),
+             ocd_sd = aggregate(ocd~COUNTRY, new_set, sd),
+             insomnia_mean = aggregate( insomnia ~ COUNTRY, new_set, mean ),
+             insomnia_sd = aggregate(insomnia~COUNTRY, new_set, sd),
+             therapy_mean = aggregate( therapy ~ COUNTRY, new_set, mean ),
+             therapy_sd = aggregate(therapy~COUNTRY, new_set, sd)
+)
+
+summary_stat <- subset(summary_stat, select = -c(                             
+                                                  depression_sd.COUNTRY, 
+                                                 anxiety_mean.COUNTRY, 
+                                            anxiety_sd.COUNTRY,ocd_mean.COUNTRY, 
+                      ocd_sd.COUNTRY,insomnia_mean.COUNTRY,insomnia_sd.COUNTRY, 
+                      therapy_mean.COUNTRY,therapy_sd.COUNTRY) )
+
+
+summary_stat<-(rename(summary_stat, COUNTRY=depression_mean.COUNTRY))
+summary_stat_b <- summary_stat %>% select(COUNTRY, depression_mean.depression, depression_sd.depression, anxiety_mean.anxiety, anxiety_sd.anxiety)
+summary_stat_b <- summary_stat_b %>% rename(nation = COUNTRY, depression_mean = depression_mean.depression, depression_sd = depression_sd.depression, anxiety_mean = anxiety_mean.anxiety, anxiety_sd = anxiety_sd.anxiety)
+
+summary_stat_c <- summary_stat %>% select(COUNTRY, therapy_mean.therapy, therapy_sd.therapy, insomnia_mean.insomnia, insomnia_sd.insomnia, ocd_mean.ocd, ocd_sd.ocd)
+summary_stat_c <- summary_stat_c %>% rename(nation = COUNTRY, therapy_mean = therapy_mean.therapy, therapy_sd = therapy_sd.therapy, insomnia_mean = insomnia_mean.insomnia, insomnia_sd = insomnia_sd.insomnia, ocd_mean = ocd_mean.ocd, ocd_sd = ocd_sd.ocd)
+
+knitr::kable(summary_stat_b,digits=3,caption="Summary Statistics for Depression and Anxiety") 
+
+knitr::kable(summary_stat_c,digits=3,caption="Summary Statistics for Therapy, Insomnia and OCD")
+
+
+```
+
+The tables above summarize the mental health search term frequency data over the period of study from January 2020 through September 2020. The mean of health search term frequency data over this time period were calculated, along with the standard deviation, for the six countries of focus. As seen in Table 1 and Table 2 above, anxiety as a search topic has the lowest mean frequency over the period of study. Therapy appears to have the highest mean frequency over the period of study. 
+
+Interestingly, insomnia and depression as search topics have the greatest range of mean frequencies between each country. For insomnia, there is a range of about 53 points, with the minimum score from Italy and the maximum score from the United States. The United States also holds the highest score for depression search frequency, with a low from India, resulting in a range of 59.
+
+It is important to note that the standard deviations for many of these measurements is fairly high. This is to be expected since the measurments are taken over a time period of rapidly changing social distancing policies and COVID severity across the globe. Further statistical analyses in this report determine how much this affects our understanding of this data.
+
+```{r dataviz, message=FALSE, warning=FALSE, fig.height = 3, echo=FALSE}
+
+natl_avg <- google_trends %>% 
+  mutate(tidytime = mdy(DATE_START), ocd2 = as.integer(ocd), insomnia2 = as.integer(insomnia)) %>% 
+  filter(tidytime < mdy("1/1/2020")) %>% 
+  group_by(COUNTRY) %>% 
+  summarise(Ndepression = mean(depression), Nocd2 = mean(ocd2), Nanxiety = mean(anxiety), Ninsomnia2 = mean(insomnia2), Ntherapy = mean(therapy))
+
+lim_set <- merge(new_set, natl_avg, by=c("COUNTRY")) %>% mutate(relative_ocd = 100 * as.integer(ocd) / Nocd2, relative_depression = 100 * as.integer(depression) / Ndepression, relative_anxiety = 100 * as.integer(anxiety) / Nanxiety, relative_insomnia = 100 * as.integer(insomnia) / Ninsomnia2, relative_therapy = 100 * as.integer(therapy) / Ntherapy)
+
+graph_set <- lim_set %>% filter(mdy(DATE_START) > mdy("3/1/2020"), mdy(DATE_START) < mdy("7/1/2020")) %>% select(DATE_START, relative_ocd)
+
+ggplot(data = graph_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) + geom_point() + geom_smooth() + ylim(50,250) + xlab("Date (2020)") + ylab("Search frequency for 'ocd', 100 = 2019 mean") + labs(title="OCD Searches Spiked In First COVID Wave")
+
+
+
+```
+
+As the next step in exploratory data analysis, the graph above was created to examine mental health search terms as a function of time, regardless of any COVID restrictions or of any specific country. This graph was made for all search terms, but it was found that the graph for OCD search topic frequency provided the most insight into how individuals' mental state shifted during the pandemic. By using geom_smooth, the line on the plot demonstrates a slight increase in frequency of searching for OCD during the first wave of COVID. From a qualitative standpoint, this increase would align with the notion that individuals became concerned with signs of OCD as much of the population became highly obsessive over cleanliness, which is often understood as OCD in the general population despite this definition being slightly inaccurate. It could also be due to individuals demonstrating signs of a compulsive need to follow certain rituals in order to feel safe from COVID. 
+
+Statistical analysis provided further in the report explores the significance, if any, of this increase.
+
+```{r dataviz2, message=FALSE, warning=FALSE, fig.height = 3, echo = FALSE, include = FALSE}
+new_set %>%
+  filter(COUNTRY == "India") %>%
+  ggplot() + geom_point(mapping = aes(y = SCHOOLS, x = date, color = "Red")) + geom_point(mapping = aes(y = anxiety, x = date, color = "Blue")) + labs(x = "Date", y = "Severity Index", title = "Comparing COVID-19 Restrictions on Schools and Google Searches for Anxiety", subtitle = "India") + scale_color_manual(labels = c("Anxiety Searches", "School Restrictions"), values = c("blue", "red")) + guides(colour = guide_legend("Legend"))
+```
+
+# Linear Regression
+
+
+```{r create-data-sets, message=FALSE, warning=FALSE, echo = FALSE}
+
+US_data <- lim_set %>%
+  filter(COUNTRY == "United States")
+
+Brazil_data <- lim_set %>%
+  filter(COUNTRY == "Brazil")
+
+Mexico_data <- lim_set %>%
+  filter(COUNTRY == "Mexico")
+
+NewZealand_data <- lim_set %>%
+  filter(COUNTRY == "New Zealand")
+
+India_data <- lim_set %>%
+  filter(COUNTRY == "India")
+
+
+```
+
+```{r final-regs, message=FALSE, warning=FALSE, echo = FALSE}
+# United States
+
+US_relative_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_relative_therapy_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Therapy") 
+
+US_relative_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_relative_anxiety_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Anxiety") 
+
+# Brazil
+
+Brazil_relative_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_relative_ocd_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: OCD")
+
+Brazil_relative_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_relative_therapy_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Therapy") 
+
+# Mexico
+
+Mexico_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_dep_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Depression") 
+
+Mexico_relative_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_relative_insomnia_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Insomnia") 
+
+# India
+
+India_relative_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_relative_insomnia_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: India, Search: Insomnia") 
+
+```
+
+```{r US-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE, echo = FALSE}
+
+US_relative_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_relative_ocd_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: USA, Search: OCD") 
+
+US_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_dep_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Depression") 
+
+US_relative_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_relative_insomnia_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: USA, Search: Insomnia") 
+
+```
+
+```{r Brazil-reg, message=FALSE, warning=FALSE, eval=FALSE, include=FALSE, echo = FALSE}
+
+Brazil_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_dep_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Depression") 
+
+
+Brazil_relative_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_relative_anxiety_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Anxiety") 
+
+Brazil_relative_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Brazil_data)
+
+Brazil_relative_insomnia_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Brazil, Search: Insomnia") 
+```
+
+```{r Mex-reg, warning = FALSE, message = FALSE, include = FALSE, echo = FALSE}
+
+Mexico_relative_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_relative_ocd_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: OCD") 
+
+
+Mexico_relative_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_relative_therapy_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Therapy") 
+
+Mexico_relative_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = Mexico_data)
+
+Mexico_relative_anxiety_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: Mexico, Search: Anxiety") 
+
+```
+
+
+```{r New-reg, message=FALSE, warning=FALSE, include = FALSE, echo = FALSE}
+
+NewZealand_relative_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_relative_ocd_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: New Zealand, Search: OCD") 
+
+NewZealand_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_dep_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: New Zealand, Search: Depression") 
+
+NewZealand_relative_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_relative_therapy_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: New Zealand, Search: Therapy") 
+
+NewZealand_relative_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_relative_anxiety_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: New Zealand, Search: Anxiety") 
+
+NewZealand_relative_insomnia_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_insomnia ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = NewZealand_data)
+
+NewZealand_relative_insomnia_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: New Zealand, Search: Insomnia") 
+```
+
+```{r Ind-reg, message=FALSE, warning=FALSE, include = FALSE, echo = FALSE}
+
+India_relative_ocd_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_ocd ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_relative_ocd_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: India, Search: OCD") 
+
+India_dep_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_depression ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_dep_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: India, Search: Depression") 
+
+India_relative_therapy_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_therapy ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_relative_therapy_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: India, Search: Therapy") 
+
+India_relative_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = India_data)
+
+India_relative_anxiety_reg %>%
+  tidy(conf.int = TRUE) %>%   knitr::kable(digits=4,caption="Nation: India, Search: Anxiety") 
+
+```
+
+```{r residualPlots, echo = FALSE, fig.height = 3, fig.width = 3}
+
+US_therapy_aug <- augment(US_relative_therapy_reg$fit)
+
+ggplot(US_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Therapy Searches in USA", y = "Residuals")
+
+
+US_anxiety_aug <- augment(US_relative_anxiety_reg$fit)
+
+ggplot(US_anxiety_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Anxiety Searches in USA", y = "Residuals")
+
+
+Brazil_ocd_aug <- augment(Brazil_relative_ocd_reg$fit)
+
+ggplot(Brazil_ocd_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted OCD Searches in Brazil", y = "Residuals")
+
+
+Brazil_therapy_aug <- augment(Brazil_relative_therapy_reg$fit)
+
+ggplot(Brazil_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Therapy Searches in Brazil", y = "Residuals")
+
+
+Mexico_dep_aug <- augment(Mexico_dep_reg$fit)
+
+ggplot(Mexico_dep_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Depression Searches in Mexico", y = "Residuals")
+
+
+Mexico_insomnia_aug <- augment(Mexico_relative_insomnia_reg$fit)
+
+ggplot(Mexico_insomnia_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Insomnia Searches in Mexico", y = "Residuals")
+
+
+India_insomnia_aug <- augment(India_relative_insomnia_reg$fit)
+
+ggplot(India_insomnia_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point(alpha = 0.5) +
+  geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
+  labs(x = "Predicted Insomnia Searches in India", y = "Residuals")
+
+```
+
+The residual plots above were created to understand any concern over the linear regression models applied to the data. Residual plots were only created for models that showed significant findings, as these are the data sets the rest of the interpretation will primarily focus on. 
+
+None of the residual plots have a clear pattern. Although some of the residual plots are concentrated on one side of the plot, there is still no discernible pattern in the variation, indicating that the models are appropriate for the data. 
+
+# References
+
+Centers for Disease Control and Prevention. (2021). Coping with stress. Centers for Disease 
+Control and Prevention. Retrieved October 11, 2021, from (https://www.cdc.gov/mentalhealth/stress-coping/cope-with-stress/index.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fcoronavirus%2F2019-ncov%2Fdaily-life-coping%2Fmanaging-stress-anxiety.html). 
+
+Our World in Data. Cumulative confirmed covid-19 cases and deaths. Our World in Data. (n.d.). 
+Retrieved October 11, 2021, from (https://ourworldindata.org/grapher/cumulative-deaths-and-cases-covid-19).
