@@ -404,7 +404,7 @@ The residual plots below were created to understand any concern over the linear 
 
 None of the residual plots have a clear pattern. Although some of the residual plots are concentrated on one side of the plot, there is still no discernible pattern in the variation, indicating that the models are appropriate for the data.
 
-```{r residualPlots, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 3, fig.width = 3}
+```{r residualPlots, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2, fig.width = 2}
 
 US_therapy_aug <- augment(US_relative_therapy_reg$fit)
 
@@ -505,8 +505,6 @@ ggplot(India_insomnia_aug, mapping = aes(x = .fitted, y = .resid)) +
 ```
 
 The confidence intervals and statistical significance of each variable were then examined. 
-#TODO==>write a better intro for this that explains why we chose multiple regression and what that tells us, in general.
-#TODO==>include plots with regression line on top of data and write a short paragraph talking about it.
 #TODO==>limitations of analysis
 #TODO==>overall conclusion/answering research question
 
@@ -532,8 +530,9 @@ INDIA-INSOMNIA:
 This regression model is evaluating the effects of different restrictions on searches for insomnia in India. Restrictions with significant p-values (< 0.05) in this model are masks, gatherings, and school. Masking restrictions have an estimate of 0.5406 (95% CI = (0.0293,1.0519), gathering restrictions have an estimate of 0.6567 (95% CI = 0.1813,1.1321), and school restrictions have an estimate of -2.2563 (95% CI = (-3.2595,-1.2531). These data demonstrate that in Mexico an increase in restrictions in masking and gatherings leads to an increase in insomnia searches, while an increase in school restrictions leads to a decrease in insomnia searches.
 
 
-Limitations:
+There are various limitations to our analysis that must be considered in order to fully understand how the conclusions apply. Some of these limitations come from considering how data was collected, particularly from Google Trends. Firstly, Google Trends measures searches relative to all other searches, and is not a nominal measure of the amount of searches being done. This adds noise to our model and may therefore skew our multiple regression models. For example, search terms for depression could have doubled but the relative score of its frequency would not change significantly if other search terms increased as well. Additionally, though the point of this report was to examine mental health concern as a function of search terms, they may not be fully indicative of actual mental health, especially considering that the search terms had to be broadened into topics in order to account for language differences. In terms of the restrictions data set, the indices are compressed into one score for an entire country, which does not account for local differences. 
 
+In general, modeling never accounts for every single factor that could contribute to explaining a response variable. There may be some factors in our model that are impacted by confounding variables or extra noise in the data set, as explained above. This is why they are models and not static measurements. Though this report has outlined interesting possibilities in terms of the relationship between mental health concern and COVID restrictions, it is important to understand the limitations in both data collection and modeling for a relationship as complex as this one. 
 
 # References
 
