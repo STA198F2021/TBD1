@@ -404,7 +404,7 @@ The residual plots below were created to understand any concern over the linear 
 
 None of the residual plots have a clear pattern. Although some of the residual plots are concentrated on one side of the plot, there is still no discernible pattern in the variation, indicating that the models are appropriate for the data.
 
-```{r residualPlot1, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 2.5}
+```{r residualPlot1, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 3}
 
 US_therapy_aug <- augment(US_relative_therapy_reg$fit)
 
@@ -421,7 +421,7 @@ ggplot(US_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
 
 ```
 
-```{r residualPlot2, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 2.5}
+```{r residualPlot2, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 3}
 US_anxiety_aug <- augment(US_relative_anxiety_reg$fit)
 
 ggplot(US_anxiety_aug, mapping = aes(x = .fitted, y = relative_anxiety)) +
@@ -436,7 +436,7 @@ ggplot(US_anxiety_aug, mapping = aes(x = .fitted, y = .resid)) +
 
 ```
 
-```{r residualPlot3, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 2.5}
+```{r residualPlot3, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 3}
 Brazil_ocd_aug <- augment(Brazil_relative_ocd_reg$fit)
 
 ggplot(Brazil_ocd_aug, mapping = aes(x = .fitted, y = relative_ocd)) +
@@ -451,7 +451,7 @@ ggplot(Brazil_ocd_aug, mapping = aes(x = .fitted, y = .resid)) +
 
 ```
 
-```{r residualPlot4, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 2.5}
+```{r residualPlot4, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 3}
 Brazil_therapy_aug <- augment(Brazil_relative_therapy_reg$fit)
 
 ggplot(Brazil_therapy_aug, mapping = aes(x = .fitted, y = relative_therapy)) +
@@ -465,7 +465,7 @@ ggplot(Brazil_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
   labs(x = "Predicted Therapy Searches in Brazil", y = "Residuals")
 ```
 
-```{r residualPlot5, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 2.5}
+```{r residualPlot5, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 3}
 
 Mexico_dep_aug <- augment(Mexico_dep_reg$fit)
 
@@ -483,7 +483,7 @@ ggplot(Mexico_dep_aug, mapping = aes(x = .fitted, y = .resid)) +
 
 ```
 
-```{r residualPlot6, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 2.5}
+```{r residualPlot6, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 3}
 Mexico_insomnia_aug <- augment(Mexico_relative_insomnia_reg$fit)
 
 ggplot(Mexico_insomnia_aug, mapping = aes(x = .fitted, y = relative_insomnia)) +
@@ -499,7 +499,7 @@ ggplot(Mexico_insomnia_aug, mapping = aes(x = .fitted, y = .resid)) +
   theme(text=element_text(size=10))
 ```
 
-```{r residualPlot7, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 2.5}
+```{r residualPlot7, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 2.5, fig.width = 3}
 
 India_insomnia_aug <- augment(India_relative_insomnia_reg$fit)
 
