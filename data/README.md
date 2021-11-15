@@ -15,21 +15,19 @@
 
 
 
-## search_term_us.xlsx
+## google_trends_data_c.csv
 
 Similar spreadsheets with identical variable names and descriptions are present for Canada, Iran, Italy, Japan, South Korea, the United Kingdom, and the United States. Lastly, a final iteration includes worldwide data. 
 
 A level of 100 for all Google Search trend measurements represents an absolute maximum level of interest, and 1 an absolute minimum. A value of 0 represents a lack of available data.
 
+week 	depression 	ocd 	anxiety 	insomnia 	therapy 	nation
 |variable         |description |
 |:----------------|:-----------|
-|Week        | The week for which search levels were measured |
-|depression        | Google Search trend measurement for 'depression' |
+|week        | The week for which search levels were measured |
+|ocd        | Google Search trend measurement for 'depression' |
 |anxiety        | Google Search trend measurement for 'anxiety' |
-|obsessive compulsive disorder        | Google Search trend measurement for 'obsessive compulsive disorder' |
-|ocd        | Google Search trend measurement for 'ocd' |
-|insomnia        | Google Search trend measurement for 'insomnia' |
-|panic attack        | Google Search trend measurement for 'panic attack' |
-|mental health        | Google Search trend measurement for 'mental health' |
-|counseling        | Google Search trend measurement for 'counseling' |
-|psychiatrist        | Google Search trend measurement for 'psychiatrist' |
+|insomnia       | Google Search trend measurement for 'obsessive compulsive disorder' |
+|therapy        | Google Search trend measurement for 'ocd' |
+|nation        | The nation that Trends was queried for (by observation) |
+
