@@ -20,7 +20,7 @@ library(xtable)
 
   From the beginning of the COVID-19 pandemic until now, the global community has suffered social, economic, and medical burdens in unprecedented levels. Though the physical health of individuals has been of paramount concern due to the high infectivity of COVID-19, with 237.88 million cases and 4.85 million deaths in as of October 2021, another burden on individuals, governments, and health systems has manifested itself in the form of rapidly deteriorating mental health (Our World in Data, 2021). It has been widely accepted that as the COVID-19 pandemic has progressed, mental health has decreased (Centers for Disease Control and Prevention, 2021). However, there is a much less comprehensive body of data surrounding how certain mitigation efforts specifically have impacted mental health. For example, the Centers for Disease Control and Prevention (2021) acknowledge that social distancing may increase loneliness, stress, and anxiety, but it is less understood if masking is more directly correlated to obsessive compulsive disorder than it is to depression. Therefore, there is a need to fully understand these intricate relationships in order to drive efforts towards creating more individualized mental health treatments, as well as being able to predict what kind of mental health treatment will be needed in response to an increase in any given public health restriction.
   
-Our data analysis will answer the following research question: how do different COVID-19 mitigation efforts correlate to different types of mental illnesses? In doing so, our project will begin to uncover how certain restrictions may impact different mental illness depending on both the type of restriction and the type of mental illness. Our project will make use of two datasets and merge the datasets based on country in order to ensure there are sufficient relationships to explore in the data. The first dataset is of the frequency of different search topics related to mental health from January of 2019 through September of 2021 for a variety of countries. The data was collected from Google Trends and records the popularity of that search term for any given week in a given country. This dataset will be used to gauge how concern with certain mental health topics, including anxiety, depression, panic attacks, obsessive compulsive disorder, and insomnia, has changed over the course of the pandemic. The second dataset tracks implementation of COVID-19 mitigation efforts in different countries. This dataset was derived from the World Health Organization’s tracking of public health and social measures, and indices were calculated on the raw data in order to quantify the intensity of the restriction, whether the restriction is on masks, gatherings, businesses, schools, or travel. This data has daily measurements from January 2020 through September of 2020. The union of this dataset with the previous will enable the exploration of any possible correlation between public health and social measures and mental health as measured by mental health search topic frequency.
+Our data analysis will answer the following research question: how do different COVID-19 mitigation efforts correlate to different types of mental illnesses? In doing so, our project will begin to uncover how certain restrictions may impact different mental illness depending on both the type of restriction and the type of mental illness. Our project will make use of two datasets and merge the data sets based on country in order to ensure there are sufficient relationships to explore in the data. The first data set is of the frequency of different search topics related to mental health from January of 2019 through September of 2021 for a variety of countries (Google Trends, 2021). The data was collected from Google Trends and records the popularity of that search term for any given week in a given country. This data set will be used to gauge how concern with certain mental health topics, including anxiety, depression, panic attacks, obsessive compulsive disorder, and insomnia, has changed over the course of the pandemic. The second data set tracks implementation of COVID-19 mitigation efforts in different countries (Zosimov, 2021). This data set was originally derived from the World Health Organization’s tracking of public health and social measures, and indices were calculated on the raw data in order to quantify the intensity of the restriction, whether the restriction is on masks, gatherings, businesses, schools, or travel. This data has daily measurements from January 2020 through September of 2020. The union of this dataset with the previous will enable the exploration of any possible correlation between public health and social measures and mental health as measured by mental health search topic frequency.
 
 
 # Load Data
@@ -532,10 +532,23 @@ INDIA-INSOMNIA:
 This regression model is evaluating the effects of different restrictions on searches for insomnia in India. Restrictions with significant p-values (< 0.05) in this model are masks, gatherings, and school. Masking restrictions have an estimate of 0.5406 (95% CI = (0.0293,1.0519), gathering restrictions have an estimate of 0.6567 (95% CI = 0.1813,1.1321), and school restrictions have an estimate of -2.2563 (95% CI = (-3.2595,-1.2531). These data demonstrate that in Mexico an increase in restrictions in masking and gatherings leads to an increase in insomnia searches, while an increase in school restrictions leads to a decrease in insomnia searches.
 
 
+Limitations:
+
+
 # References
 
 Centers for Disease Control and Prevention. (2021). Coping with stress. Centers for Disease 
-Control and Prevention. Retrieved October 11, 2021, from (https://www.cdc.gov/mentalhealth/stress-coping/cope-with-stress/index.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fcoronavirus%2F2019-ncov%2Fdaily-life-coping%2Fmanaging-stress-anxiety.html). 
+Control and Prevention. Retrieved October 11, 2021, from https://www.cdc.gov/mentalhealth/stress-coping/cope-with-stress/index.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fcoronavirus%2F2019-ncov%2Fdaily-life-coping%2Fmanaging-stress-anxiety.html.
+
+Google Trends. Google Trends, Google. (2021). Retrieved November 5, 2021, from 
+https://trends.google.com/trends/?geo=US. 
 
 Our World in Data. Cumulative confirmed covid-19 cases and deaths. Our World in Data. (n.d.). 
-Retrieved October 11, 2021, from (https://ourworldindata.org/grapher/cumulative-deaths-and-cases-covid-19).
+Retrieved October 11, 2021, from https://ourworldindata.org/grapher/
+cumulative-deaths-and-cases-covid-19.
+
+Zosimov, R. (2021, September). COVID-19: Public Health Social Measures, Version 1. 
+Retrieved October 11, 2021, from https://www.kaggle.com/hijest/covid19-public-health
+-social-measures/metadata.
+
+
