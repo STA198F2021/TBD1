@@ -174,6 +174,8 @@ Six countries in our data set were chosen as focus: Brazil, India, Italy, Mexico
 
 
 
+
+
 ```{r create-data-sets, message=FALSE, warning=FALSE, echo = FALSE}
 
 US_data <- lim_set %>%
@@ -519,6 +521,8 @@ The confidence intervals and statistical significance of each variable were then
 #TODO==>limitations of analysis
 #TODO==>overall conclusion/answering research question
 
+We chose to do multiple linear regression models for our 5 chosen countries to evaluate how the different restrictions global indexes affect the number of searches for a mental health term. We decided to do this to see which restrictions have an effect in determining the number of searches for a specific mental health term. We fit 5 multiple regression models for each country, one for each mental health search term we are evaluating. We set the mental health search term as the response variable and the different restrictions as explanatory variables.
+
 USA-THERAPY:
 This regression model is evaluating the effects of different restrictions on searches for therapy in the United States. Restrictions with significant p-values (< 0.05) in this model are masks, gatherings, schools, and businesses. Masking restrictions have an estimate of 0.0706 (95% CI = (0.0285,0.1128), gatherings restrictions have an estimate of 0.1804 (95% CI = (0.0450,0.3157), and business restrictions have an estimate of 0.0994 (95% CI = (0.0476, 0.1512). These data demonstrate that an increase in restrictions in masking, gatherings and businesses leads to an increase in therapy searches in the US. School restrictions have an estimate of -0.2416 (95% CI= (-0.3887, -0.0945). This demonstrates that an increase in school restrictions leads to a decrease in therapy searches in the US.
 
@@ -539,6 +543,8 @@ This regression model is evaluating the effects of different restrictions on sea
 
 INDIA-INSOMNIA:
 This regression model is evaluating the effects of different restrictions on searches for insomnia in India. Restrictions with significant p-values (< 0.05) in this model are masks, gatherings, and school. Masking restrictions have an estimate of 0.5406 (95% CI = (0.0293,1.0519), gathering restrictions have an estimate of 0.6567 (95% CI = 0.1813,1.1321), and school restrictions have an estimate of -2.2563 (95% CI = (-3.2595,-1.2531). These data demonstrate that in Mexico an increase in restrictions in masking and gatherings leads to an increase in insomnia searches, while an increase in school restrictions leads to a decrease in insomnia searches.
+
+These regression models helped us better understand the relationship between certain restrictions’ severity and the number of searches for a mental health term. Out of the 20 models that had data for maskings, 12 showed significant p-values (< 0.05) for mask restrictions, and 11 of those showed a positive estimate. Out of the 25 models that had data for travel, 6 showed significant p-values, and 3 of those showed a positive estimate. Out of the 25 models that had data for gatherings, 7 showed significant p-values, and 3 of those showed a positive estimate. Out of the 25 models that had data for schools, 13 showed significant p-values, and 4 of those showed a positive estimate. Out of the 25 models that had data for businesses, 6 showed significant p-values, and 3 of those showed a positive estimate. Out of the 25 models that had data for movements, 4 showed significant p-values, and 3 of those showed a positive estimate. The only restrictions where a majority of the regression models showed significance are masking and school. Furthermore, 11 out of 12 significant masking values were positive, demonstrating that an increase in masking generally demonstrated an increase in searches for mental health terms. For the school restrictions, 9 out of 13 significant school values were negative, demonstrating that an increase in school restrictions generally demonstrated a decrease in searches for mental health terms.
 
 
 There are various limitations to our analysis that must be considered in order to fully understand how the conclusions apply. Some of these limitations come from considering how data was collected, particularly from Google Trends. Firstly, Google Trends measures searches relative to all other searches, and is not a nominal measure of the amount of searches being done. This adds noise to our model and may therefore skew our multiple regression models. For example, search terms for depression could have doubled but the relative score of its frequency would not change significantly if other search terms increased as well. Additionally, though the point of this report was to examine mental health concern as a function of search terms, they may not be fully indicative of actual mental health, especially considering that the search terms had to be broadened into topics in order to account for language differences. In terms of the restrictions data set, the indices are compressed into one score for an entire country, which does not account for local differences. 
