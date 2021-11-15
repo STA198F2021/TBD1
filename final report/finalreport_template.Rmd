@@ -403,9 +403,16 @@ India_relative_anxiety_reg %>%
 The residual plots below were created to understand any concern over the linear regression models applied to the data. Residual plots were only created for models that showed significant findings, as these are the data sets the rest of the interpretation will primarily focus on. 
 
 None of the residual plots have a clear pattern. Although some of the residual plots are concentrated on one side of the plot, there is still no discernible pattern in the variation, indicating that the models are appropriate for the data.
-```{r residualPlots, echo = FALSE, fig.height = 3, fig.width = 3}
+
+```{r residualPlots, warning=FALSE, message=FALSE, echo = FALSE, fig.height = 3, fig.width = 3}
 
 US_therapy_aug <- augment(US_relative_therapy_reg$fit)
+
+ggplot(US_therapy_aug, mapping = aes(x = .fitted, y = relative_therapy)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm") +
+  labs(x = "Predicted Therapy Searches in USA", y = "Actual")
+
 
 ggplot(US_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.5) +
@@ -413,7 +420,13 @@ ggplot(US_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
   labs(x = "Predicted Therapy Searches in USA", y = "Residuals")
 
 
+
 US_anxiety_aug <- augment(US_relative_anxiety_reg$fit)
+
+ggplot(US_anxiety_aug, mapping = aes(x = .fitted, y = relative_anxiety)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm") +
+  labs(x = "Predicted Anxiety Searches in USA", y = "Actual")
 
 ggplot(US_anxiety_aug, mapping = aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.5) +
@@ -423,6 +436,11 @@ ggplot(US_anxiety_aug, mapping = aes(x = .fitted, y = .resid)) +
 
 Brazil_ocd_aug <- augment(Brazil_relative_ocd_reg$fit)
 
+ggplot(Brazil_ocd_aug, mapping = aes(x = .fitted, y = relative_ocd)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm") +
+  labs(x = "Predicted OCD Searches in Brazil", y = "Actual")
+
 ggplot(Brazil_ocd_aug, mapping = aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.5) +
   geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
@@ -430,6 +448,11 @@ ggplot(Brazil_ocd_aug, mapping = aes(x = .fitted, y = .resid)) +
 
 
 Brazil_therapy_aug <- augment(Brazil_relative_therapy_reg$fit)
+
+ggplot(Brazil_therapy_aug, mapping = aes(x = .fitted, y = relative_therapy)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm") +
+  labs(x = "Predicted Therapy Searches in Brazil", y = "Actual")
 
 ggplot(Brazil_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.5) +
@@ -439,21 +462,40 @@ ggplot(Brazil_therapy_aug, mapping = aes(x = .fitted, y = .resid)) +
 
 Mexico_dep_aug <- augment(Mexico_dep_reg$fit)
 
+ggplot(Mexico_dep_aug, mapping = aes(x = .fitted, y = relative_depression)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm") +
+  labs(x = "Predicted Depression Searches in Mexico", y = "Actual")+
+  theme(text=element_text(size=10))
+
 ggplot(Mexico_dep_aug, mapping = aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.5) +
   geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
-  labs(x = "Predicted Depression Searches in Mexico", y = "Residuals")
+  labs(x = "Predicted Depression Searches in Mexico", y = "Residuals")+
+  theme(text=element_text(size=10))
 
 
 Mexico_insomnia_aug <- augment(Mexico_relative_insomnia_reg$fit)
 
+ggplot(Mexico_insomnia_aug, mapping = aes(x = .fitted, y = relative_insomnia)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm") +
+  labs(x = "Predicted Insomnia Searches in Mexico", y = "Actual")+
+  theme(text=element_text(size=10))
+
 ggplot(Mexico_insomnia_aug, mapping = aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.5) +
   geom_hline(yintercept = 0, color = "gray", lty = "dashed") +
-  labs(x = "Predicted Insomnia Searches in Mexico", y = "Residuals")
+  labs(x = "Predicted Insomnia Searches in Mexico", y = "Residuals")+
+  theme(text=element_text(size=10))
 
 
 India_insomnia_aug <- augment(India_relative_insomnia_reg$fit)
+
+ggplot(India_insomnia_aug, mapping = aes(x = .fitted, y = relative_insomnia)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method="lm") +
+  labs(x = "Predicted Insomnia Searches in India", y = "Actual")
 
 ggplot(India_insomnia_aug, mapping = aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.5) +
