@@ -17,6 +17,7 @@
 
 ## google_trends_data_c.csv
 
+It should be noted that these data were not downloaded in conjunction; each term for each nation was queried separately.
 
 |variable         |description |
 |:----------------|:-----------|
