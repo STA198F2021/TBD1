@@ -26,7 +26,6 @@ restrictions_worldwide <- readr::read_csv("data/phsm-severity-data-short.csv")
 google_trends <- readr::read_csv("data/google_trends_data_c.csv")
 
 ```
-
 #Exploratory Data Analysis
 
   Through a series of data tidying and wrangling steps, the data has been joined on both country and date. In order to do so, column names and data formats had to first be modified in order to ensure the column titles match across the data sets. Any duplicate columns that resulted from the merge were removed. Since the search terms are weekly observations whereas restrictions are daily observations, the search term frequency will be kept constant throughout the week, but each observation for restrictions will be observed for changes. This will enable our analysis to observe how daily changes may affect weekly averages without altering or extrapolating data. 
