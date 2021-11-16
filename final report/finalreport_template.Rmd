@@ -580,5 +580,3 @@ cumulative-deaths-and-cases-covid-19.
 Zosimov, R. (2021, September). COVID-19: Public Health Social Measures, Version 1. 
 Retrieved October 11, 2021, from https://www.kaggle.com/hijest/covid19-public-health
 -social-measures/metadata.
-
-
