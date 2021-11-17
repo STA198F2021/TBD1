@@ -1,7 +1,7 @@
 ---
-title: "Presentation title"
-subtitle: "Presentation subtitle (if any)"
-author: "Team name <br> Names of team members"
+title: "The Relationship Between COVID-19 Restrictions and Mental Illness"
+subtitle: ""
+author: "Katherine Beltz, Melannie Nimocks, Matt Mohn"
 institute: "Duke University"
 date: "`r Sys.Date()`"
 output:
@@ -48,23 +48,37 @@ style_xaringan(
 
 class: inverse, middle, center
 
-# Using xaringan
+
+## Background
+
+- The COVID-19 pandemic has caused suffering worldwide, with over 230 million cases and almost 5 million deaths
+
+
+- It is widely accepted that this pandemic has caused an increase in mental illness, however there is not much data on how specific restriction affected mental health
+
+
+- In this project, we explore the relationship between specific COVID-19 restrictions and mental illnesses
+
 
 ---
 
-## xaringan
+## Data
 
-- The presentation is created using the `xaringan` package
+We used two data sets for this project
 
-- Use `---` to separate slides and `--` for incremental builds
+- First, we pulled data from Google Trends on the relative frequency of searches for mental health topics. We focused on OCD, insomnia, anxiety, depression, and therapy.
 
---
+- Second, we used a data set from WHO tracking severity indexes restrictions in different countries. We focused on restrictions on schools, gatherings, businesses, travel, and masking.
 
-- Like this
+- We merged these data sets by country and date $^*$
+
+.footnote[
+[*] Data was collected from ???
+]
 
 ---
 
-## Layouts
+## how to
 
 You can use plain text
 
