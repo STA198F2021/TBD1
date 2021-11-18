@@ -249,15 +249,11 @@ Out of all 25 models (only 20 had data for masking)...
 
 
 ---
-## Residual Plots
+## Residual Plots and Fit
 
-- Insert plots here
-
----
-## Actual Fit 
-
-- Insert plots here
-
+```{r plots, echo = FALSE, out.width = "55%", fig.align = "center", fig.cap = "Generated from USA Linear Regression Models"}
+include_graphics("img/graphs.PNG")
+```
 ---
 ## Conclusions
 
