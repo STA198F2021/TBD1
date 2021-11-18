@@ -4,7 +4,7 @@
     <title>The Relationship Between COVID-19 Restrictions and Mental Illness</title>
     <meta charset="utf-8" />
     <meta name="author" content="Katherine Beltz, Melannie Nimocks, Matt Mohn" />
-    <meta name="date" content="2021-11-17" />
+    <meta name="date" content="2021-11-18" />
     <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -15,9 +15,11 @@ class: center, middle, inverse, title-slide
 # The Relationship Between COVID-19 Restrictions and Mental Illness
 ### Katherine Beltz, Melannie Nimocks, Matt Mohn
 ### Duke University
-### 2021-11-17
+### 2021-11-18
 
 ---
+
+
 
 
 
@@ -61,15 +63,65 @@ We used two data sets for this project
 ---
 ## Data 
 
-- insert data glimpse here
+Merged Data Set
 
+
+```
+## Rows: 522
+## Columns: 17
+## $ COUNTRY      &lt;chr&gt; "Brazil", "Brazil", "Brazil", "Brazil", "Brazil", "Brazil…
+## $ DATE_START   &lt;chr&gt; "1/10/2021", "1/12/2020", "1/17/2021", "1/19/2020", "1/24…
+## $ ISO3         &lt;chr&gt; "BRA", "BRA", "BRA", "BRA", "BRA", "BRA", "BRA", "BRA", "…
+## $ WHO_REGION   &lt;chr&gt; "AMRO", "AMRO", "AMRO", "AMRO", "AMRO", "AMRO", "AMRO", "…
+## $ MASKS        &lt;dbl&gt; 47, 0, 47, 0, 47, 0, 47, 47, 0, 47, 47, 47, 47, 47, 47, 4…
+## $ TRAVEL       &lt;dbl&gt; 100, 0, 100, 0, 100, 0, 100, 100, 0, 100, 17, 17, 100, 17…
+## $ GATHERINGS   &lt;dbl&gt; 30, 0, 30, 0, 30, 0, 30, 30, 0, 5, 5, 5, 5, 5, 5, 5, 30, …
+## $ SCHOOLS      &lt;dbl&gt; 25, 0, 25, 0, 25, 0, 25, 30, 0, 25, 25, 25, 25, 25, 25, 2…
+## $ BUSINESSES   &lt;dbl&gt; 47, 0, 47, 0, 80, 0, 47, 80, 0, 80, 80, 80, 80, 80, 47, 4…
+## $ MOVEMENTS    &lt;dbl&gt; 80, 0, 20, 0, 20, 0, 80, 20, 0, 80, 20, 20, 80, 80, 20, 8…
+## $ GLOBAL_INDEX &lt;dbl&gt; 55, 0, 45, 0, 50, 0, 55, 51, 0, 56, 32, 32, 56, 42, 41, 5…
+## $ depression   &lt;dbl&gt; 36, 41, 37, 46, 35, 40, 37, 33, 39, 40, 39, 37, 39, 39, 3…
+## $ ocd          &lt;dbl&gt; 74, 66, 65, 59, 71, 61, 77, 77, 57, 51, 87, 66, 60, 70, 6…
+## $ anxiety      &lt;dbl&gt; 87, 67, 86, 69, 86, 73, 86, 87, 67, 70, 74, 82, 71, 74, 7…
+## $ insomnia     &lt;dbl&gt; 79, 87, 69, 74, 83, 83, 77, 68, 71, 55, 56, 53, 62, 64, 5…
+## $ therapy      &lt;dbl&gt; 78, 83, 81, 85, 80, 84, 76, 74, 80, 86, 91, 88, 86, 80, 7…
+## $ date         &lt;date&gt; 2021-01-10, 2020-01-12, 2021-01-17, 2020-01-19, 2021-01-…
+```
 ---
 ## Exploratory Analysis
 
-- Summary Statistics
+Summary Statistics Part 1
 
-- Preliminary Visualizations
+Table: Summary Statistics for Depression and Anxiety
 
+|nation        | depression_mean| depression_sd| anxiety_mean| anxiety_sd|
+|:-------------|---------------:|-------------:|------------:|----------:|
+|Brazil        |          37.126|         3.797|        7.409|      7.409|
+|India         |          16.207|         9.499|        4.659|      4.659|
+|Italy         |          35.747|        10.774|        8.776|      8.776|
+|Mexico        |          55.851|         8.648|        8.439|      8.439|
+|New Zealand   |          57.356|        13.813|       11.478|     11.478|
+|United States |          75.759|         6.457|        4.451|      4.451|
+---
+## Exploratory Analysis
+Summary Statistics Part 2
+
+
+Table: Summary Statistics for Therapy, Insomnia and OCD
+
+|nation        | therapy_mean| therapy_sd| insomnia_mean| insomnia_sd| ocd_mean| ocd_sd|
+|:-------------|------------:|----------:|-------------:|-----------:|--------:|------:|
+|Brazil        |       83.402|      5.645|        70.851|      11.968|   69.563|  9.717|
+|India         |       77.874|      7.219|        57.816|      13.727|   67.506| 10.580|
+|Italy         |       56.644|     10.005|        26.069|       9.629|   56.667| 11.998|
+|Mexico        |       86.218|      5.903|        50.540|      13.311|   34.782| 10.474|
+|New Zealand   |       72.126|      9.721|        43.023|      16.347|   35.529| 15.378|
+|United States |       84.345|      4.742|        79.609|       7.727|   71.184|  5.858|
+---
+## Exploratory Analysis
+Preliminary Visualizations
+
+&lt;img src="presentation_files/figure-html/dataviz-1.png" width="70%" /&gt;
 ---
 ## Analysis
 
