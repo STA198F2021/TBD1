@@ -222,6 +222,10 @@ ggplot(data = graph_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) +
 
 - 5 models for each country, each model uses a mental health search term as the response variable and all of the restrictions as explanatory variables
 
+```{r add-image, message=FALSE, warning=FALSE, echo = FALSE, out.width = "30%", fig.align = "center"}
+include_graphics("img/globe_image.png")
+```
+
 ---
 ## Evaluating Anxiety in the US
 
@@ -251,6 +255,17 @@ Out of all 25 models (only 20 had data for masking)...
 
 
 ---
+
+## Residual Plots
+
+- Insert plots here
+
+---
+## Actual Fit 
+
+- Insert plots here
+
+---
 ## Answering Our Research Question
 
 Looking at the different mental illnesses, the most significant restrictions were...
@@ -264,17 +279,6 @@ Looking at the different mental illnesses, the most significant restrictions wer
 - Anxiety: Mask and School Restrictions
 
 - Insomnia: Mask and School Restrictions
-
-
----
-## Residual Plots
-
-- Insert plots here
-
----
-## Actual Fit 
-
-- Insert plots here
 
 ---
 ## Conclusions
