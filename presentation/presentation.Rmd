@@ -277,16 +277,6 @@ Looking at the different mental illnesses, the most significant restrictions wer
 - Insert plots here
 
 ---
-## Conclusions
-
-- will likely need multiple slides
-
----
-## Implications
-
-- how it applies to real world
-
----
 ## Limitations
 
 There are several limitations to our analysis.
@@ -300,6 +290,19 @@ There are several limitations to our analysis.
 - Correlations among restrictions limit clarity.
 
 - Not an exhaustive analysis (other factors are out there!)
+
+---
+## Conclusions and Implications
+
+What we can draw from our analysis:
+
+- Some restrictions can have tangible impacts on mental health.
+
+- Given that, policymakers must include mental health as a part of overall public health when issuing decisions like restrictions.
+
+- Mask mandates appear associated with increased mental health searches, while school restrictions appear associated with decreased mental health searches.
+
+
 
 ---
 ## how to
