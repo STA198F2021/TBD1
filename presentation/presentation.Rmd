@@ -250,6 +250,10 @@ Out of all 25 models (only 20 had data for masking)...
 
 - 13 significant school restriction estimates: 9 negative
 
+```{r add-image-2, message=FALSE, warning=FALSE, echo = FALSE, out.width = "55%", fig.align = "center"}
+include_graphics("img/school_image.png")
+```
+
 
 ---
 ## Answering Our Research Question
