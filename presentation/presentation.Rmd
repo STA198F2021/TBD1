@@ -68,16 +68,58 @@ We used two data sets for this project
 
 - First, we pulled data from Google Trends on the relative frequency of searches for mental health topics. We focused on OCD, insomnia, anxiety, depression, and therapy.
 
-- Second, we used a data set from WHO tracking severity indexes restrictions in different countries. We focused on restrictions on schools, gatherings, businesses, travel, and masking.
+- Second, we used a data set that provided indexes derived from WHO data about restrictions in different countries. We focused on restrictions on schools, gatherings, businesses, travel, and masking.
 
 - We merged these data sets by country and date $^*$
 
 .footnote[
-[*] Data was collected from ???
+[*] Data was collected from Google Trends and from Kaggle.
 ]
 
 ---
+## Data 
 
+- insert data glimpse here
+
+---
+## Exploratory Analysis
+
+- Summary Statistics
+
+- Preliminary Visualizations
+
+---
+## Analysis
+
+- 5 Countries: Brazil, India, Mexico, The United States, & New Zealand
+
+- Multiple Regression
+
+---
+## Residual Plots
+
+- Insert plots here
+
+---
+## Actual Fit 
+
+- Insert plots here
+
+---
+## Conclusions
+
+- will likely need multiple slides
+
+---
+## Implications
+
+- how it applies to real world
+
+---
+## Limitations
+
+
+---
 ## how to
 
 You can use plain text
