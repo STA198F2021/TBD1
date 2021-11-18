@@ -69,15 +69,6 @@ new_set <- new_set %>%
   mutate(date = mdy(DATE_START))
 ```
 
-```{r style-slides, echo = FALSE}
-style_xaringan(
-  title_slide_background_image = "img/watercolour_sys02_img34_teacup-ocean.jpg"
-)
-```
-
-class: inverse, middle, center
-
-
 ## Background
 
 - The COVID-19 pandemic has caused suffering worldwide, with over 230 million cases and almost 5 million deaths
@@ -227,6 +218,12 @@ include_graphics("img/globe_image.png")
 ```
 
 ---
+## Residual Plots and Fit
+
+```{r plots, echo = FALSE, out.width = "55%", fig.align = "center", fig.cap = "Generated from USA Linear Regression Models"}
+include_graphics("img/graphs.PNG")
+```
+---
 ## Evaluating Anxiety in the US
 
 ```{r usa-reg, message=FALSE, warning=FALSE, echo=FALSE}
@@ -253,17 +250,6 @@ Out of all 25 models (only 20 had data for masking)...
 
 - 13 significant school restriction estimates: 9 negative
 
-
----
-
-## Residual Plots
-
-- Insert plots here
-
----
-## Actual Fit 
-
-- Insert plots here
 
 ---
 ## Answering Our Research Question
