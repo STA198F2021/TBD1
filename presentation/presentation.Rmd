@@ -99,6 +99,14 @@ We used two data sets for this project
 ]
 
 ---
+## Google Trends
+
+```{r add-image-gt, message=FALSE, warning=FALSE, echo = FALSE, out.width = "80%", fig.align = "center"}
+include_graphics("img/googletrends.png")
+```
+
+
+---
 ## Data 
 
 Merged Data Set (January 2020 - September 2020)
