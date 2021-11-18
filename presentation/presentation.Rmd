@@ -219,6 +219,34 @@ ggplot(data = graph_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) +
 - Multiple Regression
 
 ---
+## Evaluating Anxiety in the US
+
+```{r usa-reg, message=FALSE, warning=FALSE, echo=FALSE}
+US_data <- lim_set %>%
+  filter(COUNTRY == "United States")
+
+US_relative_anxiety_reg <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(relative_anxiety ~ MASKS + TRAVEL + GATHERINGS + SCHOOLS + BUSINESSES + MOVEMENTS, data = US_data)
+
+US_relative_anxiety_reg %>%
+  tidy(conf.int = TRUE) %>%   
+  knitr::kable(digits=4,caption="Nation: USA, Search: Anxiety")
+```
+
+---
+## Looking at all the Models
+
+Out of all 25 models (only 20 had data for masking)...
+
+- masking and school restrictions showed significant estimates for over half of the models
+
+- 12 significant mask restriction estimates: 11 positive
+
+- 13 significant school restriction estimates: 9 negative
+
+
+---
 ## Residual Plots
 
 - Insert plots here
