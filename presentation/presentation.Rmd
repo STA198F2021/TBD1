@@ -243,6 +243,17 @@ ggplot(data = graph_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) +
 ---
 ## Limitations
 
+There are several limitations to our analysis.
+
+- Google Trends measures relative, not nominal frequency.
+
+- Mental health searches are an imprecise measure of mental well-being.
+
+- Restrictions aren't always nationwide or equally enforced.
+
+- Correlations among restrictions limit clarity.
+
+- Not an exhaustive analysis (other factors are out there!)
 
 ---
 ## how to
@@ -355,6 +366,9 @@ $$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
 $$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
 
 Limitations:
+
+
+
 
 1. The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
 
