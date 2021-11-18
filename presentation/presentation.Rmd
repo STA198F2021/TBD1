@@ -69,15 +69,6 @@ new_set <- new_set %>%
   mutate(date = mdy(DATE_START))
 ```
 
-```{r style-slides, echo = FALSE}
-style_xaringan(
-  title_slide_background_image = "img/watercolour_sys02_img34_teacup-ocean.jpg"
-)
-```
-
-class: inverse, middle, center
-
-
 ## Background
 
 - The COVID-19 pandemic has caused suffering worldwide, with over 230 million cases and almost 5 million deaths
@@ -222,6 +213,16 @@ ggplot(data = graph_set, mapping = aes(x = mdy(DATE_START), y = relative_ocd)) +
 
 - 5 models for each country, each model uses a mental health search term as the response variable and all of the restrictions as explanatory variables
 
+```{r add-image, message=FALSE, warning=FALSE, echo = FALSE, out.width = "30%", fig.align = "center"}
+include_graphics("img/globe_image.png")
+```
+
+---
+## Residual Plots and Fit
+
+```{r plots, echo = FALSE, out.width = "55%", fig.align = "center", fig.cap = "Generated from USA Linear Regression Models"}
+include_graphics("img/graphs.PNG")
+```
 ---
 ## Evaluating Anxiety in the US
 
@@ -249,6 +250,10 @@ Out of all 25 models (only 20 had data for masking)...
 
 - 13 significant school restriction estimates: 9 negative
 
+```{r add-image-2, message=FALSE, warning=FALSE, echo = FALSE, out.width = "55%", fig.align = "center"}
+include_graphics("img/school_image.png")
+```
+
 
 ---
 ## Answering Our Research Question
@@ -264,17 +269,6 @@ Looking at the different mental illnesses, the most significant restrictions wer
 - Anxiety: Mask and School Restrictions
 
 - Insomnia: Mask and School Restrictions
-
-
----
-## Residual Plots
-
-- Insert plots here
-
----
-## Actual Fit 
-
-- Insert plots here
 
 ---
 ## Limitations
